@@ -1,0 +1,77 @@
+<div class="side-nav">
+  <h6>Drag and Drop Components</h6>
+  <hr />
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Basic Components
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="text-center">
+        <span *ngFor="let item of items">
+          <button
+            type="button"
+            class="btn btn-primary but1"
+            [draggable]
+            [dragClass]="'active'"
+            [dragData]="item"
+            [dragScope]="item.type"
+          >
+            <mat-icon>{{ item.icon }}</mat-icon
+            ><span class="padding">{{ item.name }}</span>
+          </button>
+        </span>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Button
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="text-center">
+        <span *ngFor="let button of itemsButton">
+          <button
+            type="button"
+            class="btn btn-primary but1"
+            [draggable]
+            [dragClass]="'active'"
+            [dragData]="button"
+            [dragScope]="button.type"
+          >
+            <mat-icon>{{ button.icon }}</mat-icon
+            ><span class="padding">{{ button.name }}</span>
+          </button>
+        </span>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div class="content">
+  <mat-tab-group>
+    <mat-tab label="Design"
+      ><br />
+      <h6>Drag and Drop a form component</h6>
+      <mat-card
+        droppable
+        [dragOverClass]="'drag-target-border'"
+        [dropScope]="[
+          'input-Text',
+          'input-TextArea',
+          'input-Checkbox',
+          'input-RadioButton',
+          'input-Dropdown',
+          'input-Date',
+          'single-button',
+          'double-button'
+        ]"
+        [dragHintClass]="'drag-hint'"
+      ></mat-card>
+    </mat-tab>
+    <mat-tab label="Result"> Content 2 </mat-tab>
+  </mat-tab-group>
+</div>
