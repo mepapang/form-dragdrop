@@ -1,0 +1,56 @@
+.side-nav {
+  margin-top: 60px;
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  border-color: rgb(230, 230, 230);
+  border-style: solid;
+  border-width: 1px;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+.content {
+  margin-left: 250px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+.but1 {
+  width: 80%;
+  margin-top: 5px;
+  text-align: left;
+  cursor: all-scroll;
+}
+.but2 {
+  width: 80%;
+  margin-top: 5px;
+  text-align: right;
+  cursor: all-scroll;
+}
+h6 {
+  text-align: center;
+}
+span.padding {
+  padding-left: 1.5em;
+}
+mat-expansion-panel {
+  width: 100%;
+  margin-bottom: 10px;
+}
+mat-expansion-panel button {
+  width: 100%;
+  margin-top: 5px;
+}
+mat-card {
+  margin: 20px;
+}
+
+.drag-hint {
+  border: #ffc100 dashed 2px;
+}
+
+.drag-target-border {
+  border: #00bfff dashed 2px;
+}
