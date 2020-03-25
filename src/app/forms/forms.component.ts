@@ -8,14 +8,15 @@ import * as $ from 'jquery';
 })
 export class FormsComponent implements OnInit {
 
-
   items = [
     { name: 'Text', type: 'input-Text', inputType: 'text', placeholder: '', icon: 'text_format'},
     { name: 'Text Area', type: 'input-TextArea', inputType: 'textArea', placeholder: '', icon: 'subject'},
     { name: 'Checkbox', type: 'input-Checkbox', inputType: 'checkbox', placeholder: '', icon: 'check_box'},
     { name: 'Radio Button', type: 'input-RadioButton', inputType: 'radio', placeholder: '', icon: 'radio_button_checked'},
     { name: 'Dropdown', type: 'input-Dropdown', inputType: 'select', placeholder: '', icon: 'list'},
-    { name: 'Date', type: 'input-Date', inputType: 'date', placeholder: '', icon: 'date_range'}
+    { name: 'Date', type: 'input-Date', inputType: 'date', placeholder: '', icon: 'date_range'},
+    { name: 'Card', type: 'card', inputType: 'card', icon: 'crop_portrait'},
+    { name: 'Carousel Card', type: 'carousel', inputType: 'carousel', icon: 'view_carousel'},
   ];
 
   itemsButton = [

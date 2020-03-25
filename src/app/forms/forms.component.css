@@ -44,7 +44,7 @@ mat-expansion-panel button {
   margin-top: 5px;
 }
 mat-card {
-  margin: 50px;
+  margin-top: 20px;
 }
 
 .drag-hint {
@@ -53,4 +53,7 @@ mat-card {
 
 .drag-target-border {
   border: #00bfff dashed 2px;
+}
+.layout1{
+  margin: 10px 200px 10px 200px;
 }
