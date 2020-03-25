@@ -24,10 +24,18 @@ export class FormsComponent implements OnInit {
     { name: 'Double Button', type: 'double-button', inputType: 'submit', text: 'Submit', icon: 'crop_5_4'}
   ];
 
+  droppedItemsList = [];
+  currentDraggedItem: any;
+
   button: string ;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onDropItem(e: any) {
+    this.currentDraggedItem = e ;
+    this.droppedItemsList.push(this.currentDraggedItem.dragData);
   }
 
 
