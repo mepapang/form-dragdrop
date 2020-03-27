@@ -61,6 +61,9 @@ mat-card {
   border-style: solid;
   border-color: rgb(240, 240, 240);
   padding: 20px;
-  margin-top: 20px;
   margin-bottom: 30px;
+  cursor: all-scroll;
+}
+.group-button{
+  text-align: right;
 }

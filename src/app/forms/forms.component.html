@@ -75,25 +75,86 @@
           [dragHintClass]="'drag-hint'"
           (onDrop)="onDropItem($event)"
         >
+        <!-- ------------ Display Dreopped Item List ------------------------->
           <div class="container">
-            <span *ngFor="let item of droppedItemsList; let i = index">
-              <div *ngIf="item.showButton">
-                <button mat-icon-button color="primary">
-                  <mat-icon>favorite</mat-icon>
-                </button>
-              </div>
-              <div class="form-group row" (mouseover)="item.showButton" (mouseout)="item.showButton = false">
-                <label for="test1" class="col-3 col-form-label">{{item.name}}</label>
-                <div class="col-9">
-                  <input
-                    [type]="item.inputType"
-                    class="form-control"
-                    id="test1"
-                    placeholder="testttt"
-                  />
+            <form>
+              <span *ngFor="let item of droppedItemsList; let i = index">
+                <div class="group-button" *ngIf="showButton == i">
+                  <button mat-icon-button color="primary">
+                    <mat-icon>settings</mat-icon>
+                  </button>
+                  <button mat-icon-button color="primary">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                  <button mat-icon-button color="primary">
+                    <mat-icon>delete_outline</mat-icon>
+                  </button>
                 </div>
-              </div>
-            </span>
+                <div class="form-group row" (mouseover)="mouseOver(i)">
+                  <label class="col-3 col-form-label" *ngIf="item.type !== 'single-button' && item.type !== 'double-button'">{{ item.name }}</label>
+                  <div class="col-9">
+                    <span
+                      *ngIf="
+                        item.inputType === 'text' || item.inputType === 'date'
+                      "
+                    >
+                      <input
+                        [type]="item.inputType"
+                        class="form-control"
+                        id="test1"
+                        placeholder="testttt"
+                      />
+                    </span>
+                    <span *ngIf="item.inputType === 'textarea'">
+                      <textarea
+                        class="form-control"
+                        id="textarea"
+                        rows="3"
+                        placeholder="text"
+                      >
+                      </textarea>
+                    </span>
+                    <span *ngIf="item.inputType === 'checkbox'">
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input
+                            class="form-check-input"
+                            [type]="item.inputType"
+                            id="1"
+                            value="option1"
+                          />1
+                        </label>
+                      </div>
+                    </span>
+                    <span *ngIf="item.inputType === 'radio'">
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input
+                            class="form-check-input"
+                            [type]="item.inputType"
+                            id="1"
+                            name="radioOption"
+                            value="option1"
+                          />1
+                        </label>
+                      </div>
+                    </span>
+                    <span *ngIf="item.inputType === 'select'">
+                      <select class="form-control" name="" id="">
+                        <option value="1">Option 1</option>
+                      </select>
+                    </span>
+                    <span *ngIf="item.type === 'single-button'">
+                      <button [type]="item.inputType" class="btn btn-primary">{{ item.text }}</button>
+                    </span>
+                    <span *ngIf="item.type === 'double-button'">
+                      <button [type]="item.inputType[0]" class="btn btn-primary">{{ item.text[0] }}</button>&nbsp;
+                      <button [type]="item.inputType[1]" class="btn btn-secondary">{{ item.text[1] }}</button>
+                    </span>
+                  </div>
+                </div>
+              </span>
+            </form>
           </div>
         </mat-card>
       </div>

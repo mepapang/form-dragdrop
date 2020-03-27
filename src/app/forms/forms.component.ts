@@ -10,7 +10,7 @@ export class FormsComponent implements OnInit {
 
   items = [
     { name: 'Text', type: 'input-Text', inputType: 'text', placeholder: '', icon: 'text_format'},
-    { name: 'Text Area', type: 'input-TextArea', inputType: 'textArea', placeholder: '', icon: 'subject'},
+    { name: 'Text Area', type: 'input-TextArea', inputType: 'textarea', placeholder: '', icon: 'subject'},
     { name: 'Checkbox', type: 'input-Checkbox', inputType: 'checkbox', placeholder: '', icon: 'check_box'},
     { name: 'Radio Button', type: 'input-RadioButton', inputType: 'radio', placeholder: '', icon: 'radio_button_checked'},
     { name: 'Dropdown', type: 'input-Dropdown', inputType: 'select', placeholder: '', icon: 'list'},
@@ -21,12 +21,12 @@ export class FormsComponent implements OnInit {
 
   itemsButton = [
     { name: 'Single Button', type: 'single-button', inputType: 'submit', text: 'Submit', icon: 'crop_5_4'},
-    { name: 'Double Button', type: 'double-button', inputType: 'submit', text: 'Submit', icon: 'crop_5_4'}
+    { name: 'Double Button', type: 'double-button', inputType: ['submit', 'reset'], text: ['Submit', 'Cancel'], icon: 'crop_5_4'}
   ];
 
   droppedItemsList = [];
   currentDraggedItem: any;
-  showButton: boolean = false;
+  showButton: number;
 
   button: string ;
   constructor() { }
@@ -39,7 +39,8 @@ export class FormsComponent implements OnInit {
     this.droppedItemsList.push(this.currentDraggedItem.dragData);
   }
 
-  showEditButton(event: any) {
+  mouseOver(i){
+    this.showButton = i;
   }
 
 }
