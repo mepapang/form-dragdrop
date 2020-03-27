@@ -26,6 +26,7 @@ export class FormsComponent implements OnInit {
 
   droppedItemsList = [];
   currentDraggedItem: any;
+  showButton: boolean = false;
 
   button: string ;
   constructor() { }
@@ -38,5 +39,7 @@ export class FormsComponent implements OnInit {
     this.droppedItemsList.push(this.currentDraggedItem.dragData);
   }
 
+  showEditButton(event: any) {
+  }
 
 }

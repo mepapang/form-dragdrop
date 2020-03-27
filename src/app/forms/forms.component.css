@@ -57,3 +57,10 @@ mat-card {
 .layout1{
   margin: 10px 200px 10px 200px;
 }
+.form-group{
+  border-style: solid;
+  border-color: rgb(240, 240, 240);
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}

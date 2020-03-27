@@ -76,8 +76,13 @@
           (onDrop)="onDropItem($event)"
         >
           <div class="container">
-            <span *ngFor="let item of droppedItemsList">
-              <div class="form-group row">
+            <span *ngFor="let item of droppedItemsList; let i = index">
+              <div *ngIf="item.showButton">
+                <button mat-icon-button color="primary">
+                  <mat-icon>favorite</mat-icon>
+                </button>
+              </div>
+              <div class="form-group row" (mouseover)="item.showButton" (mouseout)="item.showButton = false">
                 <label for="test1" class="col-3 col-form-label">{{item.name}}</label>
                 <div class="col-9">
                   <input
