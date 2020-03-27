@@ -6,3 +6,7 @@
 .buttonForm{
     margin-left: 10%;
 }
+.is-active{
+    background-color: #0275d8;
+    color: white;
+}
