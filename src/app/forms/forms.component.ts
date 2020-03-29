@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-forms',
@@ -34,13 +34,22 @@ export class FormsComponent implements OnInit {
   ngOnInit() {
   }
 
+  // ------- method for drop item from button components and add item in list --------
   onDropItem(e: any) {
     this.currentDraggedItem = e ;
     this.droppedItemsList.push(this.currentDraggedItem.dragData);
   }
 
-  mouseOver(i){
+  mouseOver(i) {
     this.showButton = i;
+  }
+
+  deleteList(index) {
+    this.droppedItemsList.splice(index, 1);
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.droppedItemsList, event.previousIndex, event.currentIndex);
   }
 
 }

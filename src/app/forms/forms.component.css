@@ -17,6 +17,21 @@
   font-size: 20px; /* Increased text to enable scrolling */
   padding: 0px 10px;
 }
+.drop-item-list{
+  width: 1020px;
+  float: left;
+  margin-top: 20px;
+}
+.setting-field {
+  display: block;
+  border-color: rgb(230, 230, 230);
+  border-style: solid;
+  border-width: 1px;
+  float: left; 
+  padding: 10px;
+  margin-left: 20px;
+  width: 395px;
+}
 .but1 {
   width: 80%;
   margin-top: 5px;
@@ -45,6 +60,7 @@ mat-expansion-panel button {
 }
 mat-card {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .drag-hint {
@@ -54,16 +70,16 @@ mat-card {
 .drag-target-border {
   border: #00bfff dashed 2px;
 }
-.layout1{
-  margin: 10px 200px 10px 200px;
-}
-.form-group{
+/* .layout1 {
+  margin: 0px;
+} */
+.form-group {
   border-style: solid;
   border-color: rgb(240, 240, 240);
   padding: 20px;
   margin-bottom: 30px;
   cursor: all-scroll;
 }
-.group-button{
+.group-button {
   text-align: right;
 }
