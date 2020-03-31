@@ -46,7 +46,9 @@ export class FormsComponent implements OnInit {
       inputType: 'date',
       icon: 'date_range'
     },
-    { name: 'Card', type: 'card', inputType: 'card', icon: 'crop_portrait' },
+    { name: 'Card', type: 'card', inputType: 'card', icon: 'crop_portrait' , style: [{
+      width: '18rem', height: '18rem'
+    }]},
     {
       name: 'Carousel Card',
       type: 'carousel',
@@ -82,6 +84,8 @@ export class FormsComponent implements OnInit {
   settingButton: boolean = false;
   settingButtonDouble: boolean = false;
   settingText: boolean = false;
+  settingDate: boolean = false;
+
 
   button: string;
   constructor() {}
@@ -145,6 +149,14 @@ export class FormsComponent implements OnInit {
         this.settingText = false;
       } else if (items.type === 'double-button') {
         this.settingButtonDouble = true;
+        this.settingButton = false;
+        this.settingSelect = false;
+        this.settingRadio = false;
+        this.settingCheck = false;
+        this.settingText = false;
+      } else if (items.inputType === 'date') {
+        this.settingDate = true;
+        this.settingButtonDouble = false;
         this.settingButton = false;
         this.settingSelect = false;
         this.settingRadio = false;
