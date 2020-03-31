@@ -11,6 +11,7 @@
   border-width: 1px;
   overflow-x: hidden;
   padding-top: 20px;
+
 }
 .content {
   margin-left: 250px; /* Same as the width of the sidenav */
@@ -18,19 +19,17 @@
   padding: 0px 10px;
 }
 .drop-item-list{
-  width: 1020px;
+  width: 60%;
   float: left;
   margin-top: 20px;
 }
 .setting-field {
   display: block;
-  border-color: rgb(230, 230, 230);
-  border-style: solid;
-  border-width: 1px;
-  float: left; 
+  float: right; 
   padding: 10px;
-  margin-left: 20px;
-  width: 395px;
+  height: 100%;
+  width: 35%;
+  margin-left: 10px;
 }
 .but1 {
   width: 80%;
@@ -58,11 +57,10 @@ mat-expansion-panel button {
   width: 100%;
   margin-top: 5px;
 }
-mat-card {
+mat-card.card-drop-item {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
 .drag-hint {
   border: #ffc100 dashed 2px;
 }
@@ -73,7 +71,7 @@ mat-card {
 /* .layout1 {
   margin: 0px;
 } */
-.form-group {
+.form-dropped {
   border-style: solid;
   border-color: rgb(240, 240, 240);
   padding: 20px;
@@ -82,4 +80,12 @@ mat-card {
 }
 .group-button {
   text-align: right;
+}
+
+.closeOption{
+  float: right;
+}
+
+div.card-body{
+  padding: 5px;
 }
