@@ -89,3 +89,14 @@ mat-card.card-drop-item {
 div.card-body{
   padding: 5px;
 }
+
+.htmlResult{
+  margin: 10px;
+  float: left;
+  width: 50%;
+}
+.jsonResult{
+  margin: 10px;
+  float: right;
+  width: 40%;
+}

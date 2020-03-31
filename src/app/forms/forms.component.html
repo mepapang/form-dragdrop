@@ -121,7 +121,7 @@
                         [type]="item.inputType"
                         class="form-control"
                         id="test1"
-                        [placeholder]="item.placeholder"
+                        [placeholder]="item.setting.placeholder"
                       />
                     </span>
                     <span *ngIf="item.inputType === 'textarea'">
@@ -129,7 +129,7 @@
                         class="form-control"
                         id="textarea"
                         rows="3"
-                        [placeholder]="item.placeholder"
+                        [placeholder]="item.setting.placeholder"
                       >
                       </textarea>
                     </span>
@@ -212,13 +212,25 @@
                         </ol>
                         <div class="carousel-inner">
                           <div class="carousel-item active">
-                            <img src="..." class="d-block w-100" alt="..." />
+                            <img
+                              src="assets/photo1.jpg"
+                              class="d-block w-100"
+                              alt="..."
+                            />
                           </div>
                           <div class="carousel-item">
-                            <img src="..." class="d-block w-100" alt="..." />
+                            <img
+                              src="assets/photo2.jpg"
+                              class="d-block w-100"
+                              alt="..."
+                            />
                           </div>
                           <div class="carousel-item">
-                            <img src="..." class="d-block w-100" alt="..." />
+                            <img
+                              src="assets/photo3.jpg"
+                              class="d-block w-100"
+                              alt="..."
+                            />
                           </div>
                         </div>
                         <a
@@ -282,7 +294,7 @@
                       id="labelID"
                     />
                   </div>
-                  <div class="form-group" >
+                  <div class="form-group">
                     <label>Placeholder</label>
                     <input
                       type="text"
@@ -340,6 +352,40 @@
                       value="required"
                     />
                     <label class="form-check-label">Required</label>
+                  </div>
+                  <br /><br />
+                  <div class="text-center">
+                    <button class="btn btn-primary" type="submit">Submit</button
+                    >&nbsp;
+                    <button
+                      class="btn btn-secondary"
+                      type="button"
+                      (click)="displaySetting = false"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+                
+                <!-- ----- Setting tab of Card & Carousel ---------->
+                <form *ngIf="settingCard">
+                  <div class="form-group">
+                    <label>ID/Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="fieldName"
+                      id="fieldID"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Image source</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="imgName"
+                      id="imgID"
+                    />
                   </div>
                   <br /><br />
                   <div class="text-center">
@@ -649,6 +695,26 @@
         </mat-card>
       </div>
     </mat-tab>
-    <mat-tab label="Result"> Content 2 </mat-tab>
+    <mat-tab label="Result">
+        <div class="htmlResult">
+          <h5>HTML Result</h5>
+            <div *ngFor="let forms of forms.attributes">
+              <div *ngIf="forms.inputType === 'text' || forms.inputType === 'date'">
+                <div class="form-group row">
+                  <label class="col-3">{{forms.setting.labelField}}</label>
+                  <div class="col-9">
+                      <input type="text" class="form-control" name="{{forms.setting.name}}" id="{{forms.setting.id}}" placeholder="{{forms.setting.placeholder}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="jsonResult">
+          <h5>JSON Result</h5>
+          <div class="container">
+            {{forms | json}}
+          </div>
+        </div>
+    </mat-tab>
   </mat-tab-group>
 </div>
