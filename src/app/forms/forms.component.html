@@ -366,7 +366,7 @@
                     </button>
                   </div>
                 </form>
-                
+
                 <!-- ----- Setting tab of Card & Carousel ---------->
                 <form *ngIf="settingCard">
                   <div class="form-group">
@@ -689,7 +689,16 @@
                   </div>
                 </form>
               </mat-tab>
-              <mat-tab label="Config"> Content 2 </mat-tab>
+              <mat-tab label="Config"><br>
+                <div class="form-group">
+                  <label>Add API Variable</label>
+                    <select class="form-control">
+                      <option value="1">message</option>
+                      <option value="2">userName</option>
+                      <option value="3">getTimeStamp</option>
+                    </select>
+                </div>
+              </mat-tab>
             </mat-tab-group>
           </mat-card-content>
         </mat-card>
