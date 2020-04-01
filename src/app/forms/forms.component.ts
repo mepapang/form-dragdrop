@@ -7,7 +7,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   styleUrls: ['./forms.component.css']
 })
 export class FormsComponent implements OnInit {
- 
+
   items = [
     {
       name: 'Text',
@@ -43,11 +43,15 @@ export class FormsComponent implements OnInit {
       setting: {
         id: 'check',
         name: 'check',
-        labelField: 'Check box',
+        labelField: 'Checkbox',
         required: '',
         options: [{
           label: 'option 1',
-          value: '1'
+          value: 1
+        },
+        {
+          label: 'option 2',
+          value: 2
         }]
       }
     },
@@ -79,15 +83,15 @@ export class FormsComponent implements OnInit {
         required: '',
         options: [{
           label: 'option 1',
-          value: '1'
+          value: 1
         },
         {
-          label: 'option2',
-          value: '2'
+          label: 'option 2',
+          value: 2
         },
         {
-          label: 'option3',
-          value: '3'
+          label: 'option 3',
+          value: 3
         }]
       }
     },
@@ -127,6 +131,7 @@ export class FormsComponent implements OnInit {
       setting: {
         id: 'button',
         name: 'button',
+        labelField: '',
         label: 'Submit',
         typeButton: ['Submit', 'Reset', 'Button']
       }

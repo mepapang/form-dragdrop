@@ -121,7 +121,7 @@
                         [type]="item.inputType"
                         class="form-control"
                         id="test1"
-                        [placeholder]="item.setting.placeholder"
+                        placeholder="{{item.setting.placeholder}}"
                       />
                     </span>
                     <span *ngIf="item.inputType === 'textarea'">
@@ -129,7 +129,7 @@
                         class="form-control"
                         id="textarea"
                         rows="3"
-                        [placeholder]="item.setting.placeholder"
+                        placeholder="{{item.setting.placeholder}}"
                       >
                       </textarea>
                     </span>
@@ -140,8 +140,18 @@
                             class="form-check-input"
                             [type]="item.inputType"
                             id="1"
-                            value="option1"
-                          />1
+                            value="1"
+                          />option 1
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input
+                            class="form-check-input"
+                            [type]="item.inputType"
+                            id="2"
+                            value="2"
+                          />option 2
                         </label>
                       </div>
                     </span>
@@ -154,13 +164,15 @@
                             id="1"
                             name="radioOption"
                             value="option1"
-                          />1
+                          />option 1
                         </label>
                       </div>
                     </span>
                     <span *ngIf="item.inputType === 'select'">
                       <select class="form-control" name="" id="">
                         <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
                       </select>
                     </span>
                     <span *ngIf="item.type === 'single-button'">
@@ -706,23 +718,79 @@
     </mat-tab>
     <mat-tab label="Result">
         <div class="htmlResult">
-          <h5>HTML Result</h5>
-            <div *ngFor="let forms of forms.attributes">
-              <div *ngIf="forms.inputType === 'text' || forms.inputType === 'date'">
-                <div class="form-group row">
-                  <label class="col-3">{{forms.setting.labelField}}</label>
-                  <div class="col-9">
-                      <input type="text" class="form-control" name="{{forms.setting.name}}" id="{{forms.setting.id}}" placeholder="{{forms.setting.placeholder}}">
+          <mat-card>
+            <mat-card-title>
+              <h5>HTML Result</h5>
+            </mat-card-title>
+              <div *ngFor="let formsAtt of forms.attributes">
+                <div *ngIf="formsAtt.inputType === 'text' || formsAtt.inputType === 'date'">
+                  <div class="form-group row">
+                    <label class="col-3">{{formsAtt.setting.labelField}}</label>
+                    <div class="col-9">
+                        <input [type]="formsAtt.inputType" class="form-control" name="{{formsAtt.setting.name}}" id="{{formsAtt.setting.id}}" placeholder="{{formsAtt.setting.placeholder}}">
+                    </div>
+                  </div>
+                </div>
+                <!-- --------- text area ----------------------->
+                <div *ngIf="formsAtt.inputType === 'textarea'">
+                  <div class="form-group row">
+                    <label class="col-3">{{formsAtt.setting.labelField}}</label>
+                    <div class="col-9">
+                        <textarea class="form-control" name="textarea" id="textarea" rows="3"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <!-- --------- check box & radio ----------------------->
+                <div *ngIf="formsAtt.inputType === 'checkbox' || formsAtt.inputType === 'radio'">
+                  <div class="form-group row">
+                    <label class="col-3">{{formsAtt.setting.labelField}}</label>
+                    <div class="col-9">
+                        <span *ngFor="let optionCheck of formsAtt.setting.options">
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                              <input [type]="formsAtt.inputType" class="form-check-input" name="{{formsAtt.setting.name}}" id="{{formsAtt.setting.id}}" [value]="optionCheck.value">
+                              {{optionCheck.label}}</label>
+                          </div>
+                        </span>
+                    </div>
+                  </div>
+                </div>
+                <!-- ----------------- Dropdown  ----------------------->
+                <div *ngIf="formsAtt.inputType === 'select'">
+                  <div class="form-group row">
+                    <label class="col-3">{{formsAtt.setting.labelField}}</label>
+                    <div class="col-9">
+                      <select class="form-control" name="{{formsAtt.setting.name}}" id="{{formsAtt.setting.id}}">
+                          <option *ngFor="let optionSelect of formsAtt.setting.options" [value]="optionSelect.value">{{optionSelect.label}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- ----------------- Button ----------------------->
+                <div *ngIf="formsAtt.inputType === 'submit'">
+                  <div class="form-group row">
+                    <label class="col-3">{{formsAtt.setting.labelField}}</label>
+                    <div class="col-9">
+                      <button class="btn btn-primary" type="submit">{{formsAtt.setting.label}}</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+          </mat-card>
         </div>
         <div class="jsonResult">
-          <h5>JSON Result</h5>
-          <div class="container">
-            {{forms | json}}
-          </div>
+          <mat-card>
+            <mat-card-title>
+              <h5>JSON Result</h5>
+            </mat-card-title>
+            <mat-card-content>
+              <div class="container">
+                {{forms | json}}
+              </div>
+            </mat-card-content>
+          </mat-card>
+          
+         
         </div>
     </mat-tab>
   </mat-tab-group>
