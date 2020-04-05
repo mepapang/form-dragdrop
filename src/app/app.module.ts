@@ -15,6 +15,7 @@ import { TableComponent } from './table/table.component';
 import { DialogFormComponent } from './dialog-form/dialog-form.component';
 import { FormApiService } from './service/form-api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     RouterModule,
     HttpClientModule,
+    FormsModule,
     NgDragDropModule.forRoot()
   ],
   providers: [FormApiService],

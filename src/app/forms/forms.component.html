@@ -86,6 +86,14 @@
             cdkDropList
             (cdkDropListDropped)="drop($event)"
           >
+            <div class="row">
+              <div class="col-3">
+                <label>Form name</label>
+              </div>
+              <div class="col-9">
+                <input class="form-control" type="text" name="formName" id="formName" [(ngModel)]="forms.formname">
+              </div>
+            </div>
             <span *ngFor="let item of droppedItemsList; let i = index" cdkDrag>
               <div class="group-button" *ngIf="showButton == i">
                 <button

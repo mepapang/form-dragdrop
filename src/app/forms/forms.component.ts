@@ -3,6 +3,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { DialogFormComponent } from '../dialog-form/dialog-form.component';
 import { FormApiService } from '../service/form-api.service';
+import { Forms } from '../model/field.model';
 @Component({
   selector: 'app-forms',
   templateUrl: './forms.component.html',
@@ -233,7 +234,8 @@ export class FormsComponent implements OnInit {
   settingCarousel: boolean = false;
   button: string;
 
-  forms: any = {
+  forms: Forms = {
+    id: null,
     formname: 'formsName',
     attributes: this.droppedItemsList
   };
@@ -243,8 +245,9 @@ export class FormsComponent implements OnInit {
 
   // -------- method for create form in db and form design -------------
   createForm() {
+    // this.showForm = true;
+    // this.btnAdd = false;
     this.formApi.creatForms(this.forms).subscribe(( data => {
-      console.log(data);
       if (data) {
         this.showForm = true;
         this.btnAdd = false;

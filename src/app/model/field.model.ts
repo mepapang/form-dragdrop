@@ -1,5 +1,5 @@
 export class Forms {
-    $id: number;
+    id: number;
     formname: string;
     attributes?: Array<Field>;
 }
