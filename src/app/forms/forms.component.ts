@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { DialogFormComponent } from '../dialog-form/dialog-form.component';
+import { FormApiService } from '../service/form-api.service';
 @Component({
   selector: 'app-forms',
   templateUrl: './forms.component.html',
@@ -14,12 +16,16 @@ export class FormsComponent implements OnInit {
       type: 'input-Text',
       inputType: 'text',
       icon: 'text_format',
+      className: 'form-control',
+      inputColumn: 'col-9',
+      labelColumn: 'col-3',
+      layoutCol: 'col',
       setting: {
         id: 'text',
         name: 'text',
         labelField: 'Text',
         placeholder: 'Enter your text',
-        required: ''
+        required: false
       }
     },
     {
@@ -27,12 +33,17 @@ export class FormsComponent implements OnInit {
       type: 'input-TextArea',
       inputType: 'textarea',
       icon: 'subject',
+      className: 'form-control',
+      inputColumn: 'col-9',
+      labelColumn: 'col-3',
+      layoutCol: 'col',
       setting: {
         id: 'textarea',
         name: 'textarea',
         labelField: 'Text Area',
         placeholder: 'text',
-        required: ''
+        required: false,
+        rows: '3'
       }
     },
     {
@@ -40,11 +51,15 @@ export class FormsComponent implements OnInit {
       type: 'input-Checkbox',
       inputType: 'checkbox',
       icon: 'check_box',
+      className: 'form-check-inline',
+      inputColumn: 'col-9',
+      labelColumn: 'col-3',
+      layoutCol: 'col',
       setting: {
         id: 'check',
         name: 'check',
         labelField: 'Checkbox',
-        required: '',
+        required: false,
         options: [{
           label: 'option 1',
           value: 1
@@ -60,15 +75,23 @@ export class FormsComponent implements OnInit {
       type: 'input-RadioButton',
       inputType: 'radio',
       icon: 'radio_button_checked',
+      className: 'form-check-inline',
+      inputColumn: 'col-9',
+      labelColumn: 'col-3',
+      layoutCol: 'col',
       setting: {
         id: 'radio',
         name: 'radio',
         labelField: 'Radio Button',
-        required: '',
+        required: false,
         options: [{
           label: 'option 1',
           value: '1'
-        }]
+        },
+      {
+        label: 'option 2',
+        value: '2'
+      }]
       }
     },
     {
@@ -76,11 +99,15 @@ export class FormsComponent implements OnInit {
       type: 'input-Dropdown',
       inputType: 'select',
       icon: 'list',
+      className: 'form-control',
+      inputColumn: 'col-9',
+      labelColumn: 'col-3',
+      layoutCol: 'col',
       setting: {
         id: 'dropdown',
         name: 'dropdown',
         labelField: 'Dropdown',
-        required: '',
+        required: false,
         options: [{
           label: 'option 1',
           value: 1
@@ -100,15 +127,19 @@ export class FormsComponent implements OnInit {
       type: 'input-Date',
       inputType: 'date',
       icon: 'date_range',
+      className: 'form-control',
+      inputColumn: 'col-9',
+      labelColumn: 'col-3',
+      layoutCol: 'col',
       setting: {
         id: 'date',
         name: 'date',
         labelField: 'Date',
-        required: '',
+        required: false,
       }
     },
     {
-      name: 'Card', type: 'card', inputType: 'card', icon: 'crop_portrait', setting: { imgSrc: '' }
+      name: 'Card', type: 'card', inputType: 'card', icon: 'crop_portrait', setting: { imgSrc: [{src: ''}] }
     },
     {
       name: 'Carousel Card',
@@ -116,7 +147,25 @@ export class FormsComponent implements OnInit {
       inputType: 'carousel',
       icon: 'view_carousel',
       setting: {
+        id: 'carousel',
+        name: 'carousel',
         imgSrc: [{ src: 'assets/photo1.jpg' }, { src: 'assets/photo2.jpg' }, { src: 'assets/photo3.jpg' }]
+      }
+    },
+    {
+      name: 'File input',
+      type: 'file',
+      inputType: 'file',
+      icon: 'folder_open',
+      className: ' form-control-file',
+      inputColumn: 'col-9',
+      labelColumn: 'col-3',
+      layoutCol: 'col',
+      setting: {
+        id: 'file',
+        name: 'file',
+        labelField: 'File input',
+        required: false
       }
     }
   ];
@@ -126,41 +175,52 @@ export class FormsComponent implements OnInit {
       name: 'Single Button',
       type: 'single-button',
       inputType: 'submit',
-      text: 'Submit',
       icon: 'crop_5_4',
+      className: 'btn btn-primary',
+      inputColumn: 'col-9',
+      labelColumn: 'col-3',
+      layoutCol: 'col',
       setting: {
         id: 'button',
         name: 'button',
         labelField: '',
         label: 'Submit',
-        typeButton: ['Submit', 'Reset', 'Button']
+        type: 'submit'
       }
     },
     {
       name: 'Double Button',
       type: 'double-button',
-      inputType: ['submit', 'button'],
-      text: ['Submit', 'Cancel'],
+      inputType: 'button',
       icon: 'crop_5_4',
+      inputColumn: 'col-9',
+      labelColumn: 'col-3',
+      layoutCol: 'col',
       setting: {
-        id: 'button',
-        name: 'button',
-        typeButton: ['Submit', 'Reset', 'Button'],
-        setting: [{
+        labelField: '',
+        setBtn: [{
+          id: 'btn1',
+          name: 'btn1',
           label: 'Submit',
-          type: 'submit'
+          type: 'submit',
+          className: 'btn btn-primary'
         },
-        {
+      {
+          id: 'btn2',
+          name: 'btn2',
           label: 'Cancel',
-          type: 'Button'
+          type: 'button',
+          className: 'btn btn-secondary'
         }]
       }
-    }
-  ];
+      }
+    ];
 
   droppedItemsList = [];
   currentDraggedItem: any;
   showButton: number;
+  btnAdd: boolean = true;
+  showForm: boolean = false;
   displaySetting: boolean = false;
   settingCheck: boolean = false;
   settingRadio: boolean = false;
@@ -174,12 +234,23 @@ export class FormsComponent implements OnInit {
   button: string;
 
   forms: any = {
-    name: 'formsName',
+    formname: 'formsName',
     attributes: this.droppedItemsList
   };
-  constructor() { }
+  constructor( private dialog: MatDialog, public formApi: FormApiService) { }
 
   ngOnInit() { }
+
+  // -------- method for create form in db and form design -------------
+  createForm() {
+    this.formApi.creatForms(this.forms).subscribe(( data => {
+      console.log(data);
+      if (data) {
+        this.showForm = true;
+        this.btnAdd = false;
+      }
+    }));
+  }
 
   // ------- method for drop item from button components and add item in list --------
   onDropItem(e: any) {
@@ -193,7 +264,15 @@ export class FormsComponent implements OnInit {
 
   // ------------- delete dropped item from droppedItemList -----------------------
   deleteList(index) {
-    this.droppedItemsList.splice(index, 1);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(DialogFormComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.droppedItemsList.splice(index, 1);
+      }
+    });
   }
   // ------------- move dropped items in droppedItemsList -----------------------
   drop(event: CdkDragDrop<string[]>) {

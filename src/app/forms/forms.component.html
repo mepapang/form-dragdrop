@@ -1,3 +1,4 @@
+
 <div class="side-nav">
   <h6>Drag and Drop Components</h6>
   <hr />
@@ -57,7 +58,9 @@
     <mat-tab label="Design">
       <div class="drop-item-list">
         <h6>Drag and Drop a form component</h6>
-        <mat-card
+        <button class="btn btn-success btn-block" type="button" (click)="createForm()" *ngIf="btnAdd">Add Form</button>
+        <span *ngIf="showForm">
+        <mat-card 
           class="card-drop-item"
           droppable
           [dragOverClass]="'drag-target-border'"
@@ -71,7 +74,8 @@
             'single-button',
             'double-button',
             'card',
-            'carousel'
+            'carousel',
+            'file'
           ]"
           [dragHintClass]="'drag-hint'"
           (onDrop)="onDropItem($event)"
@@ -94,24 +98,20 @@
                 <button mat-icon-button color="primary">
                   <mat-icon>add</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" (click)="deleteList(i)">
+                <button mat-icon-button color="warn" (click)="deleteList(i)">
                   <mat-icon>delete_outline</mat-icon>
                 </button>
               </div>
-              <form>
                 <div
                   class="form-group row form-dropped"
                   (mouseover)="mouseOver(i)"
                 >
+                  <div [class]="item.layoutCol">
+                    <div class="row">
                   <label
-                    class="col-3 col-form-label"
-                    *ngIf="
-                      item.type !== 'single-button' &&
-                      item.type !== 'double-button'
-                    "
-                    >{{ item.name }}</label
+                    [class]="item.labelColumn">{{ item.setting.labelField }}</label
                   >
-                  <div class="col-9">
+                  <div [class]="item.inputColumn">
                     <span
                       *ngIf="
                         item.inputType === 'text' || item.inputType === 'date'
@@ -119,80 +119,50 @@
                     >
                       <input
                         [type]="item.inputType"
-                        class="form-control"
-                        id="test1"
+                        [class]="item.className"
+                        id ="{{item.setting.id}}"
+                        name ="{{item.setting.name}}"
                         placeholder="{{item.setting.placeholder}}"
                       />
                     </span>
                     <span *ngIf="item.inputType === 'textarea'">
                       <textarea
-                        class="form-control"
-                        id="textarea"
-                        rows="3"
+                        [class]="item.className"
+                        id ="{{item.setting.id}}"
+                        name="{{item.setting.name}}"
+                        rows="{{item.setting.rows}}"
                         placeholder="{{item.setting.placeholder}}"
-                      >
-                      </textarea>
+                      ></textarea>
                     </span>
-                    <span *ngIf="item.inputType === 'checkbox'">
-                      <div class="form-check form-check-inline">
+                    <span *ngIf="item.inputType === 'checkbox' || item.inputType === 'radio'">
+                      <div [class]="item.className" *ngFor="let optionCheck of item.setting.options">
                         <label class="form-check-label">
                           <input
                             class="form-check-input"
                             [type]="item.inputType"
-                            id="1"
-                            value="1"
-                          />option 1
-                        </label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <label class="form-check-label">
-                          <input
-                            class="form-check-input"
-                            [type]="item.inputType"
-                            id="2"
-                            value="2"
-                          />option 2
-                        </label>
-                      </div>
-                    </span>
-                    <span *ngIf="item.inputType === 'radio'">
-                      <div class="form-check form-check-inline">
-                        <label class="form-check-label">
-                          <input
-                            class="form-check-input"
-                            [type]="item.inputType"
-                            id="1"
-                            name="radioOption"
-                            value="option1"
-                          />option 1
+                            id="{{item.setting.id}}"
+                            name="{{item.setting.name}}"
+                            [value]="optionCheck.value"
+                          />{{optionCheck.label}}
                         </label>
                       </div>
                     </span>
                     <span *ngIf="item.inputType === 'select'">
-                      <select class="form-control" name="" id="">
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
+                      <select [class]="item.className" name="{{item.setting.name}}" id="{{item.setting.id}}">
+                        <option *ngFor="let optionSelect of item.setting.options" [value]="optionSelect.value">{{optionSelect.label}}</option>
                       </select>
                     </span>
                     <span *ngIf="item.type === 'single-button'">
-                      <button [type]="item.inputType" class="btn btn-primary">
-                        {{ item.text }}
+                      <button [type]="item.inputType" [class]="item.className">
+                        {{ item.setting.label }}
                       </button>
                     </span>
                     <span *ngIf="item.type === 'double-button'">
-                      <button
-                        [type]="item.inputType[0]"
-                        class="btn btn-primary"
-                      >
-                        {{ item.text[0] }}</button
-                      >&nbsp;
-                      <button
-                        [type]="item.inputType[1]"
-                        class="btn btn-secondary"
-                      >
-                        {{ item.text[1] }}
-                      </button>
+                        <button *ngFor="let btn of item.setting.setBtn"
+                            [type]="btn.type"
+                            [class]="btn.className"
+                        >
+                        {{btn.label}}</button>
                     </span>
                     <span *ngIf="item.type === 'card'">
                       <div class="card" style="width: 18rem; height: 18rem;">
@@ -271,13 +241,22 @@
                         </a>
                       </div>
                     </span>
+                    <span *ngIf="item.inputType === 'file'">
+                        <input [class]="item.className" [type]="item.inputType" name="{{item.setting.name}}" id="{{item.setting.id}}">
+                    </span>
+                  </div>
+                  </div>
                   </div>
                 </div>
-              </form>
             </span>
           </div>
         </mat-card>
+        <div class="text-right">
+           <button class="btn btn-success" type="button">Add Form</button>
+        </div>
+        </span>
       </div>
+      
       <div class="setting-field" *ngIf="displaySetting">
         <mat-card>
           <mat-card-header>
@@ -772,6 +751,15 @@
                     <label class="col-3">{{formsAtt.setting.labelField}}</label>
                     <div class="col-9">
                       <button class="btn btn-primary" type="submit">{{formsAtt.setting.label}}</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- ----------------- file ----------------------->
+                <div *ngIf="formsAtt.inputType === 'file'">
+                  <div class="form-group row">
+                    <label class="col-3">{{formsAtt.setting.labelField}}</label>
+                    <div class="col-9">
+                      <input class="form-control-file" type="file" name="{{formsAtt.setting.name}}" id="{{formsAtt.setting.id}}">
                     </div>
                   </div>
                 </div>

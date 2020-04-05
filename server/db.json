@@ -1,0 +1,143 @@
+{
+  "forms": [
+    {
+      "id": 1,
+      "name": "formsName",
+      "attributes": [
+        {
+          "name": "Text",
+          "type": "input-Text",
+          "inputType": "text",
+          "icon": "text_format",
+          "className": "form-control",
+          "inputColumn": "col-9",
+          "labelColumn": "col-3",
+          "layoutCol": "col",
+          "setting": {
+            "id": "text",
+            "name": "text",
+            "labelField": "Text",
+            "placeholder": "Enter your text",
+            "required": false
+          }
+        },
+        {
+          "name": "Checkbox",
+          "type": "input-Checkbox",
+          "inputType": "checkbox",
+          "icon": "check_box",
+          "className": "form-check-inline",
+          "inputColumn": "col-9",
+          "labelColumn": "col-3",
+          "layoutCol": "col",
+          "setting": {
+            "id": "check",
+            "name": "check",
+            "labelField": "Checkbox",
+            "required": false,
+            "options": [
+              {
+                "label": "option 1",
+                "value": 1
+              },
+              {
+                "label": "option 2",
+                "value": 2
+              }
+            ]
+          }
+        },
+        {
+          "name": "Date",
+          "type": "input-Date",
+          "inputType": "date",
+          "icon": "date_range",
+          "className": "form-control",
+          "inputColumn": "col-9",
+          "labelColumn": "col-3",
+          "layoutCol": "col",
+          "setting": {
+            "id": "date",
+            "name": "date",
+            "labelField": "Date",
+            "required": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "formsName",
+      "attributes": [
+        {
+          "name": "Text",
+          "type": "input-Text",
+          "inputType": "text",
+          "icon": "text_format",
+          "className": "form-control",
+          "inputColumn": "col-9",
+          "labelColumn": "col-3",
+          "layoutCol": "col",
+          "setting": {
+            "id": "text",
+            "name": "text",
+            "labelField": "Text",
+            "placeholder": "Enter your text",
+            "required": false
+          }
+        },
+        {
+          "name": "Checkbox",
+          "type": "input-Checkbox",
+          "inputType": "checkbox",
+          "icon": "check_box",
+          "className": "form-check-inline",
+          "inputColumn": "col-9",
+          "labelColumn": "col-3",
+          "layoutCol": "col",
+          "setting": {
+            "id": "check",
+            "name": "check",
+            "labelField": "Checkbox",
+            "required": false,
+            "options": [
+              {
+                "label": "option 1",
+                "value": 1
+              },
+              {
+                "label": "option 2",
+                "value": 2
+              }
+            ]
+          }
+        },
+        {
+          "name": "Date",
+          "type": "input-Date",
+          "inputType": "date",
+          "icon": "date_range",
+          "className": "form-control",
+          "inputColumn": "col-9",
+          "labelColumn": "col-3",
+          "layoutCol": "col",
+          "setting": {
+            "id": "date",
+            "name": "date",
+            "labelField": "Date",
+            "required": false
+          }
+        }
+      ]
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "id": 5
+    }
+  ]
+}

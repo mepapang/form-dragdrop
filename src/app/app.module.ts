@@ -12,13 +12,17 @@ import { FormsComponent } from './forms/forms.component';
 import { MaterialModule } from './material/material.module';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { TableComponent } from './table/table.component';
+import { DialogFormComponent } from './dialog-form/dialog-form.component';
+import { FormApiService } from './service/form-api.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FormsComponent,
-    TableComponent
+    TableComponent,
+    DialogFormComponent
   ],
   imports: [
     BrowserModule,
@@ -26,9 +30,11 @@ import { TableComponent } from './table/table.component';
     BrowserAnimationsModule,
     MaterialModule,
     RouterModule,
+    HttpClientModule,
     NgDragDropModule.forRoot()
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [FormApiService],
+  bootstrap: [AppComponent],
+  entryComponents: [ DialogFormComponent]
 })
 export class AppModule {}
