@@ -236,7 +236,7 @@ export class FormsComponent implements OnInit {
 
   forms: Forms = {
     id: null,
-    formname: 'formsName',
+    formName: 'formsName',
     attributes: this.droppedItemsList
   };
   constructor( private dialog: MatDialog, public formApi: FormApiService) { }

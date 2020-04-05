@@ -1,6 +1,6 @@
 export class Forms {
     id: number;
-    formname: string;
+    formName: string;
     attributes?: Array<Field>;
 }
 
