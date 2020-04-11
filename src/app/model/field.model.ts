@@ -5,6 +5,7 @@ export class Forms {
 }
 
 export class Field {
+    id?: string;
    name?: string;
    type?: string;
    inputType?: string;
@@ -13,12 +14,12 @@ export class Field {
    inputColumn?: string;
    labelColumn?: string;
    layoutCol?: string;
-   setting?: Array<Setting>;
+   setting?: Setting;
 
 }
 
 export class Setting {
-    id?: string;
+    _id?: string;
     name?: string;
     labelField?: string;
     placeholder?: string;

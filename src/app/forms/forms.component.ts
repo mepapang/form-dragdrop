@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { DialogFormComponent } from '../dialog-form/dialog-form.component';
 import { FormApiService } from '../service/form-api.service';
-import { Forms } from '../model/field.model';
+import { Forms, Field } from '../model/field.model';
+import { DialogFormComponent } from '../dialog-form/dialog-form.component';
+import { DialogLayoutComponent } from '../dialog-layout/dialog-layout.component';
+import { DndDropEvent } from 'ngx-drag-drop';
 @Component({
   selector: 'app-forms',
   templateUrl: './forms.component.html',
@@ -11,7 +13,7 @@ import { Forms } from '../model/field.model';
 })
 export class FormsComponent implements OnInit {
 
-  items = [
+  items: Array<Field> = [
     {
       name: 'Text',
       type: 'input-Text',
@@ -20,10 +22,8 @@ export class FormsComponent implements OnInit {
       className: 'form-control',
       inputColumn: 'col-9',
       labelColumn: 'col-3',
-      layoutCol: 'col',
+      layoutCol: 'oneCol',
       setting: {
-        id: 'text',
-        name: 'text',
         labelField: 'Text',
         placeholder: 'Enter your text',
         required: false
@@ -37,10 +37,8 @@ export class FormsComponent implements OnInit {
       className: 'form-control',
       inputColumn: 'col-9',
       labelColumn: 'col-3',
-      layoutCol: 'col',
+      layoutCol: 'oneCol',
       setting: {
-        id: 'textarea',
-        name: 'textarea',
         labelField: 'Text Area',
         placeholder: 'text',
         required: false,
@@ -55,10 +53,8 @@ export class FormsComponent implements OnInit {
       className: 'form-check-inline',
       inputColumn: 'col-9',
       labelColumn: 'col-3',
-      layoutCol: 'col',
+      layoutCol: 'oneCol',
       setting: {
-        id: 'check',
-        name: 'check',
         labelField: 'Checkbox',
         required: false,
         options: [{
@@ -79,10 +75,8 @@ export class FormsComponent implements OnInit {
       className: 'form-check-inline',
       inputColumn: 'col-9',
       labelColumn: 'col-3',
-      layoutCol: 'col',
+      layoutCol: 'oneCol',
       setting: {
-        id: 'radio',
-        name: 'radio',
         labelField: 'Radio Button',
         required: false,
         options: [{
@@ -103,10 +97,8 @@ export class FormsComponent implements OnInit {
       className: 'form-control',
       inputColumn: 'col-9',
       labelColumn: 'col-3',
-      layoutCol: 'col',
+      layoutCol: 'oneCol',
       setting: {
-        id: 'dropdown',
-        name: 'dropdown',
         labelField: 'Dropdown',
         required: false,
         options: [{
@@ -131,10 +123,8 @@ export class FormsComponent implements OnInit {
       className: 'form-control',
       inputColumn: 'col-9',
       labelColumn: 'col-3',
-      layoutCol: 'col',
+      layoutCol: 'oneCol',
       setting: {
-        id: 'date',
-        name: 'date',
         labelField: 'Date',
         required: false,
       }
@@ -148,8 +138,6 @@ export class FormsComponent implements OnInit {
       inputType: 'carousel',
       icon: 'view_carousel',
       setting: {
-        id: 'carousel',
-        name: 'carousel',
         imgSrc: [{ src: 'assets/photo1.jpg' }, { src: 'assets/photo2.jpg' }, { src: 'assets/photo3.jpg' }]
       }
     },
@@ -161,10 +149,8 @@ export class FormsComponent implements OnInit {
       className: ' form-control-file',
       inputColumn: 'col-9',
       labelColumn: 'col-3',
-      layoutCol: 'col',
+      layoutCol: 'oneCol',
       setting: {
-        id: 'file',
-        name: 'file',
         labelField: 'File input',
         required: false
       }
@@ -180,10 +166,8 @@ export class FormsComponent implements OnInit {
       className: 'btn btn-primary',
       inputColumn: 'col-9',
       labelColumn: 'col-3',
-      layoutCol: 'col',
+      layoutCol: 'oneCol',
       setting: {
-        id: 'button',
-        name: 'button',
         labelField: '',
         label: 'Submit',
         type: 'submit'
@@ -196,7 +180,7 @@ export class FormsComponent implements OnInit {
       icon: 'crop_5_4',
       inputColumn: 'col-9',
       labelColumn: 'col-3',
-      layoutCol: 'col',
+      layoutCol: 'oneCol',
       setting: {
         labelField: '',
         setBtn: [{
@@ -217,7 +201,12 @@ export class FormsComponent implements OnInit {
       }
     ];
 
-  droppedItemsList = [];
+  droppedItemsList: Array<Field> = [];
+  forms: Forms = {
+    id: null,
+    formName: 'formsName',
+    attributes: this.droppedItemsList
+  };
   currentDraggedItem: any;
   showButton: number;
   btnAdd: boolean = true;
@@ -233,36 +222,66 @@ export class FormsComponent implements OnInit {
   settingCard: boolean = false;
   settingCarousel: boolean = false;
   button: string;
-
-  forms: Forms = {
-    id: null,
-    formName: 'formsName',
-    attributes: this.droppedItemsList
-  };
+  
   constructor( private dialog: MatDialog, public formApi: FormApiService) { }
 
   ngOnInit() { }
 
   // -------- method for create form in db and form design -------------
   createForm() {
-    // this.showForm = true;
-    // this.btnAdd = false;
-    this.formApi.creatForms(this.forms).subscribe(( data => {
-      if (data) {
-        this.showForm = true;
-        this.btnAdd = false;
-      }
-    }));
+    this.showForm = true;
+    this.btnAdd = false;
+    // this.formApi.creatForms(this.forms).subscribe(( data => {
+    //   if (data) {
+    //     this.showForm = true;
+    //     this.btnAdd = false;
+    //   }
+    // }));
   }
 
   // ------- method for drop item from button components and add item in list --------
-  onDropItem(e: any) {
-    this.currentDraggedItem = e;
-    this.droppedItemsList.push(this.currentDraggedItem.dragData);
+  onDropItem(event: DndDropEvent, list?: any[]) {
+    if (list && event.dropEffect === 'copy') {
+      event.data.setting.name = event.data.inputType + '-' + new Date().getTime();
+      list.push(event.data);
+    }
+    // let index = event.index;
+    // list.splice(index, 0, event.data);
+    // if ( typeof index === 'undefined') {
+    //   index = list.length;
+    // }
+
+    // this.currentDraggedItem = event;
+    // console.log('this.currentDraggedItem', this.currentDraggedItem);
+    // this.currentDraggedItem.dragData.id = event.dragData.inputType + '-' + new Date().getTime();
+    // list.push(this.currentDraggedItem.dragData);
+    // this.droppedItemsList.push(this.currentDraggedItem.dragData);
   }
 
   mouseOver(i) {
     this.showButton = i;
+  }
+
+  // -------- method for open dialog layout and manage layout -----------------
+  onAddLayout(index, data) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(DialogLayoutComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'oneCol') {
+        this.droppedItemsList[index].layoutCol = 'oneCol';
+        this.droppedItemsList[index].setting.placeholder =  'test';
+        // this.droppedItemsList[index].layoutRow = 'twoColRow';
+        this.droppedItemsList.splice(index + 1, 0, data);
+        console.log('this.droppedItemsList',this.droppedItemsList);
+        console.log('items',this.items);
+      } else if (result === 'twoCol') {
+        this.droppedItemsList[index].layoutCol = 'twoCol';
+      } else {
+        this.droppedItemsList[index].layoutCol = 'col';
+      }
+    });
   }
 
   // ------------- delete dropped item from droppedItemList -----------------------
@@ -354,7 +373,6 @@ export class FormsComponent implements OnInit {
         this.settingCheck = false;
         this.settingText = false;
       } else {
-        console.log('text');
         this.settingText = true;
         this.settingButtonDouble = false;
         this.settingButton = false;

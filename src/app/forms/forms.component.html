@@ -14,11 +14,12 @@
           <button
             type="button"
             class="btn btn-primary but1"
-            [draggable]
-            [dragClass]="'active'"
-            [dragData]="item"
-            [dragScope]="item.type"
-          >
+            [dndDraggable]="item"
+            [dndEffectAllowed]="'copy'" 
+          > 
+          <!-- [draggable]
+          [dragClass]="'active'"
+          [dragData]="item" -->
             <mat-icon>{{ item.icon }}</mat-icon
             ><span class="padding">{{ item.name }}</span>
           </button>
@@ -39,10 +40,8 @@
           <button
             type="button"
             class="btn btn-primary but1"
-            [draggable]
-            [dragClass]="'active'"
-            [dragData]="button"
-            [dragScope]="button.type"
+            [dndDraggable]="button"
+            [dndEffectAllowed]="'copy'" 
           >
             <mat-icon>{{ button.icon }}</mat-icon
             ><span class="padding">{{ button.name }}</span>
@@ -60,29 +59,17 @@
         <h6>Drag and Drop a form component</h6>
         <button class="btn btn-success btn-block" type="button" (click)="createForm()" *ngIf="btnAdd">Add Form</button>
         <span *ngIf="showForm">
-        <mat-card 
+        <mat-card
           class="card-drop-item"
-          droppable
-          [dragOverClass]="'drag-target-border'"
-          [dropScope]="[
-            'input-Text',
-            'input-TextArea',
-            'input-Checkbox',
-            'input-RadioButton',
-            'input-Dropdown',
-            'input-Date',
-            'single-button',
-            'double-button',
-            'card',
-            'carousel',
-            'file'
-          ]"
-          [dragHintClass]="'drag-hint'"
-          (onDrop)="onDropItem($event)"
+          dndDropzone
+          (dndDrop)="onDropItem($event,forms.attributes)" class="dndDropArea"
         >
+        <!-- droppable
+          [dragOverClass]="'drag-target-border'"
+          [dragHintClass]="'drag-hint'"
+          (onDrop)="onDropItem($event,forms.attributes)" -->
           <!-- ------------ Display Dreopped Item List ------------------------->
           <div
-            class="container"
             cdkDropList
             (cdkDropListDropped)="drop($event)"
           >
@@ -90,32 +77,41 @@
               <div class="col-3">
                 <label>Form name</label>
               </div>
-              <div class="col-9">
+              <div class="col-5">
                 <input class="form-control" type="text" name="formName" id="formName" [(ngModel)]="forms.formName">
               </div>
-            </div>
-            <span *ngFor="let item of droppedItemsList; let i = index" cdkDrag>
+            </div><br>
+            <div class="row">
+            <div *ngFor="let item of forms.attributes; let i = index" cdkDrag>
+              <div [class]="item.layoutCol" (mouseover)="mouseOver(i)" (mouseleave)="showButton = null">
               <div class="group-button" *ngIf="showButton == i">
                 <button
                   mat-icon-button
                   color="primary"
-                  (click)="settingField(i, item)"
+                  *ngIf="!item.toggle"
+                  (click)="item.toggle=true"
                 >
                   <mat-icon>settings</mat-icon>
                 </button>
-                <button mat-icon-button color="primary">
+                <button
+                  mat-icon-button
+                  color="primary"
+                  *ngIf="item.toggle"
+                  (click)="item.toggle=false"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="onAddLayout(i,item)">
                   <mat-icon>add</mat-icon>
                 </button>
                 <button mat-icon-button color="warn" (click)="deleteList(i)">
                   <mat-icon>delete_outline</mat-icon>
                 </button>
               </div>
-                <div
-                  class="form-group row form-dropped"
-                  (mouseover)="mouseOver(i)"
-                >
-                  <div [class]="item.layoutCol">
+                
+                    <div class="form-dropped" id="{{item.id}}">
                     <div class="row">
+                      
                   <label
                     [class]="item.labelColumn">{{ item.setting.labelField }}</label
                   >
@@ -128,8 +124,8 @@
                       <input
                         [type]="item.inputType"
                         [class]="item.className"
-                        id ="{{item.setting.id}}"
-                        name ="{{item.setting.name}}"
+                        id ="{{item.id}}"
+                        name ="{{item.name}}"
                         placeholder="{{item.setting.placeholder}}"
                       />
                     </span>
@@ -254,18 +250,25 @@
                     </span>
                   </div>
                   </div>
+                    <!-- -------- Toggle Setting of field -------------->
+                    <div *ngIf="item.toggle" class="toggle-Wrapper">
+                      <hr>
+                      <app-setting-form></app-setting-form>
+                    </div>
                   </div>
-                </div>
-            </span>
+                  </div>
           </div>
-        </mat-card>
+        </div>
+          </div>
+          
+        </mat-card><br>
         <div class="text-right">
            <button class="btn btn-success" type="button">Add Form</button>
         </div>
         </span>
       </div>
       
-      <div class="setting-field" *ngIf="displaySetting">
+      <!-- <div class="setting-field" *ngIf="displaySetting">
         <mat-card>
           <mat-card-header>
             <mat-card-title>Setting and config field</mat-card-title>
@@ -324,7 +327,7 @@
                   </div>
                 </form>
 
-                <!-- ----- Setting tab of date ---------->
+                 ----- Setting tab of date --------
                 <form *ngIf="settingDate">
                   <div class="form-group">
                     <label>ID/Name</label>
@@ -366,7 +369,7 @@
                   </div>
                 </form>
 
-                <!-- ----- Setting tab of Card & Carousel ---------->
+                ----- Setting tab of Card & Carousel ---------
                 <form *ngIf="settingCard">
                   <div class="form-group">
                     <label>ID/Name</label>
@@ -399,7 +402,7 @@
                     </button>
                   </div>
                 </form>
-                <!-- Setting tab of checkbox-->
+                *----- Setting tab of checkbox-----*
                 <form *ngIf="settingCheck">
                   <div class="form-group">
                     <label>Group Name</label>
@@ -480,7 +483,7 @@
                   </div>
                 </form>
 
-                <!-- Setting tab of radio-->
+                *-- Setting tab of radio--*
                 <form *ngIf="settingRadio">
                   <div class="form-group">
                     <label>Group Name</label>
@@ -561,7 +564,7 @@
                   </div>
                 </form>
 
-                <!-- Setting tab of Select-->
+                *-- Setting tab of Select--*
                 <form *ngIf="settingSelect">
                   <div class="form-group">
                     <label>ID/Name</label>
@@ -642,7 +645,7 @@
                   </div>
                 </form>
 
-                <!-- Setting tab of button-->
+                *-- Setting tab of button--*
                 <form *ngIf="settingButton">
                   <div class="form-group">
                     <label>ID/Name</label>
@@ -697,11 +700,39 @@
                       <option value="3">getTimeStamp</option>
                     </select>
                 </div>
+                <div class="form-group">
+                  <label>Statement</label>
+                    <select class="form-control">
+                      <option value="1">Statement 1</option>
+                      <option value="2">Statement 2</option>
+                      <option value="3">Statement 3</option>
+                    </select>
+                </div>
+                <div class="form-group row">
+                  <div class="col-4">
+                    <label>Status Field</label>
+                  </div>
+                  <div class="col-8">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="show" checked>
+                      <label class="form-check-label" for="inlineRadio1">Show</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="hide">
+                      <label class="form-check-label" for="inlineRadio2">Hide</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="readonly">
+                      <label class="form-check-label" for="inlineRadio3">Read Only</label>
+                    </div>
+                  </div>
+                  
+                </div>
               </mat-tab>
             </mat-tab-group>
           </mat-card-content>
         </mat-card>
-      </div>
+      </div> -->
     </mat-tab>
     <mat-tab label="Result">
         <div class="htmlResult">
@@ -709,14 +740,24 @@
             <mat-card-title>
               <h5>HTML Result</h5>
             </mat-card-title>
+            <div class="row">
+              <div class="col-3">
+                <label>Form name</label>
+              </div>
+              <div class="col-5">
+                {{forms.formName}}
+              </div>
+            </div><br>
               <div *ngFor="let formsAtt of forms.attributes">
                 <div *ngIf="formsAtt.inputType === 'text' || formsAtt.inputType === 'date'">
-                  <div class="form-group row">
-                    <label class="col-3">{{formsAtt.setting.labelField}}</label>
-                    <div class="col-9">
-                        <input [type]="formsAtt.inputType" class="form-control" name="{{formsAtt.setting.name}}" id="{{formsAtt.setting.id}}" placeholder="{{formsAtt.setting.placeholder}}">
-                    </div>
-                  </div>
+                 
+                        <div class="form-group row">
+                          <label class="col-3">{{formsAtt.setting.labelField}}</label>
+                        <div class="col-9">
+                            <input [type]="formsAtt.inputType" class="form-control" name="{{formsAtt.setting.name}}" id="{{formsAtt.setting.id}}" placeholder="{{formsAtt.setting.placeholder}}">
+                        </div>
+                        </div>
+                  
                 </div>
                 <!-- --------- text area ----------------------->
                 <div *ngIf="formsAtt.inputType === 'textarea'">

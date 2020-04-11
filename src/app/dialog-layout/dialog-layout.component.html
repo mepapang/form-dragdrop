@@ -1,0 +1,27 @@
+<h3>Layout</h3><hr>
+<div class="container" >
+    <mat-button-toggle-group #group="matButtonToggleGroup">
+        <mat-button-toggle value="oneCol">
+            <img src="assets/layout1.png" alt=""><br>One Column
+        </mat-button-toggle>
+        <mat-button-toggle value="twoCol">
+            <img src="assets/layout2.png" alt=""><br>Two Columns
+        </mat-button-toggle>
+        <mat-button-toggle value="threeCol">
+            <img src="assets/layout3.png" alt=""><br>Three Columns
+        </mat-button-toggle><br>
+        <mat-button-toggle value="oneThreeLeftCol">
+            <img src="assets/layout4.png" alt=""><br>One-third left column
+        </mat-button-toggle>
+        <mat-button-toggle value="oneThreeRightCol">
+            <img src="assets/layout5.png" alt=""><br>One-third right column
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+    <br><br>
+    <div class="text-right"> 
+        <button type="submit" class="btn btn-primary" [mat-dialog-close]="group.value">Submit</button>&nbsp;
+        <button class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+
+    </div>
+</div>
+

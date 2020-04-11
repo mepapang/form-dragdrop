@@ -10,12 +10,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FormsComponent } from './forms/forms.component';
 import { MaterialModule } from './material/material.module';
-import { NgDragDropModule } from 'ng-drag-drop';
 import { TableComponent } from './table/table.component';
 import { DialogFormComponent } from './dialog-form/dialog-form.component';
 import { FormApiService } from './service/form-api.service';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DialogLayoutComponent } from './dialog-layout/dialog-layout.component';
+import { DndModule } from 'ngx-drag-drop';
+import { SettingFormComponent } from './forms/setting-form/setting-form.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     FormsComponent,
     TableComponent,
-    DialogFormComponent
+    DialogFormComponent,
+    DialogLayoutComponent,
+    SettingFormComponent
   ],
   imports: [
     BrowserModule,
@@ -33,10 +37,11 @@ import { FormsModule } from '@angular/forms';
     RouterModule,
     HttpClientModule,
     FormsModule,
-    NgDragDropModule.forRoot()
+    ReactiveFormsModule,
+    DndModule
   ],
   providers: [FormApiService],
   bootstrap: [AppComponent],
-  entryComponents: [ DialogFormComponent]
+  entryComponents: [ DialogFormComponent, DialogLayoutComponent]
 })
 export class AppModule {}

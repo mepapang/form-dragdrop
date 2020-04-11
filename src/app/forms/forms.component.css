@@ -6,6 +6,7 @@
   z-index: 1;
   top: 0;
   left: 0;
+  overflow: auto;
   border-color: rgb(230, 230, 230);
   border-style: solid;
   border-width: 1px;
@@ -19,19 +20,17 @@
   padding: 0px 10px;
 }
 .drop-item-list{
-  width: 60%;
-  float: left;
   margin-top: 20px;
   margin-bottom: 50px;
 }
-.setting-field {
+/* .setting-field {
   display: block;
   float: right; 
   padding: 10px;
   height: 100%;
   width: 35%;
   margin-left: 10px;
-}
+} */
 .but1 {
   width: 80%;
   margin-top: 5px;
@@ -82,6 +81,9 @@ mat-card.card-drop-item {
 .group-button {
   text-align: right;
 }
+.btn{
+  margin-right: 5px;
+}
 
 .closeOption{
   float: right;
@@ -103,4 +105,10 @@ div.card-body{
 }
 .fieldhide{
   display: none;
+}
+.oneCol{
+  width: 1200px;
+}
+.twoCol{
+  width: 600px;
 }
