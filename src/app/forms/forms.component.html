@@ -75,7 +75,7 @@
           >
             <div class="row">
               <div class="col-3">
-                <label>Form name</label>
+                <label style="margin-right: 5px;">Form name</label><label class="text-danger">*</label>
               </div>
               <div class="col-5">
                 <input class="form-control" type="text" name="formName" id="formName" [(ngModel)]="forms.formName">
@@ -113,8 +113,8 @@
                     <div class="row">
                       
                   <label
-                    [class]="item.labelColumn">{{ item.setting.labelField }}</label
-                  >
+                    [class]="item.labelColumn">{{ item.setting.labelField }} <span *ngIf="item.setting.required" class="text-danger">*</span></label>
+                   
                   <div [class]="item.inputColumn">
                     <span
                       *ngIf="
@@ -752,7 +752,7 @@
                 <div *ngIf="formsAtt.inputType === 'text' || formsAtt.inputType === 'date'">
                  
                         <div class="form-group row">
-                          <label class="col-3">{{formsAtt.setting.labelField}}</label>
+                          <label class="col-3">{{formsAtt.setting.labelField}} <span *ngIf="formsAtt.setting.required" class="text-danger">*</span></label>
                         <div class="col-9">
                             <input [type]="formsAtt.inputType" class="form-control" name="{{formsAtt.setting.name}}" id="{{formsAtt.setting.id}}" placeholder="{{formsAtt.setting.placeholder}}">
                         </div>
@@ -762,7 +762,7 @@
                 <!-- --------- text area ----------------------->
                 <div *ngIf="formsAtt.inputType === 'textarea'">
                   <div class="form-group row">
-                    <label class="col-3">{{formsAtt.setting.labelField}}</label>
+                    <label class="col-3">{{formsAtt.setting.labelField}}<span *ngIf="formsAtt.setting.required" class="text-danger">*</span></label>
                     <div class="col-9">
                         <textarea class="form-control" name="textarea" id="textarea" rows="3"></textarea>
                     </div>
@@ -771,7 +771,7 @@
                 <!-- --------- check box & radio ----------------------->
                 <div *ngIf="formsAtt.inputType === 'checkbox' || formsAtt.inputType === 'radio'">
                   <div class="form-group row">
-                    <label class="col-3">{{formsAtt.setting.labelField}}</label>
+                    <label class="col-3">{{formsAtt.setting.labelField}}  <span *ngIf="formsAtt.setting.required" class="text-danger">*</span></label>
                     <div class="col-9">
                         <span *ngFor="let optionCheck of formsAtt.setting.options">
                           <div class="form-check form-check-inline">
@@ -786,7 +786,7 @@
                 <!-- ----------------- Dropdown  ----------------------->
                 <div *ngIf="formsAtt.inputType === 'select'">
                   <div class="form-group row">
-                    <label class="col-3">{{formsAtt.setting.labelField}}</label>
+                    <label class="col-3">{{formsAtt.setting.labelField}}  <span *ngIf="formsAtt.setting.required" class="text-danger">*</span></label>
                     <div class="col-9">
                       <select class="form-control" name="{{formsAtt.setting.name}}" id="{{formsAtt.setting.id}}">
                           <option *ngFor="let optionSelect of formsAtt.setting.options" [value]="optionSelect.value">{{optionSelect.label}}</option>
@@ -806,7 +806,7 @@
                 <!-- ----------------- file ----------------------->
                 <div *ngIf="formsAtt.inputType === 'file'">
                   <div class="form-group row">
-                    <label class="col-3">{{formsAtt.setting.labelField}}</label>
+                    <label class="col-3">{{formsAtt.setting.labelField}} <span *ngIf="formsAtt.setting.required" class="text-danger">*</span></label>
                     <div class="col-9">
                       <input class="form-control-file" type="file" name="{{formsAtt.setting.name}}" id="{{formsAtt.setting.id}}">
                     </div>

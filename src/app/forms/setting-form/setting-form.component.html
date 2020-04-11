@@ -1,1 +1,460 @@
-<p>setting-form works!</p>
+<div class="container">
+    <mat-tab-group>
+        <mat-tab label="Setting">
+                <div class="text-left">
+                    <h5>Setting Field</h5>
+                </div><br />
+            <form *ngIf="settingText">
+                <div class="form-group">
+                  <label>ID/Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="fieldName"
+                    id="fieldID"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Label Text</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="labelName"
+                    id="labelID"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Placeholder</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="placeholderName"
+                    id="placeholderID"
+                  />
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value="required"
+                  />
+                  <label class="form-check-label">Required</label>
+                </div>
+                <br /><br />
+                <div class="text-center">
+                  <button class="btn btn-primary" type="submit">Submit</button
+                  >&nbsp;
+                  <button
+                    class="btn btn-secondary"
+                    type="button"
+                    (click)="displaySetting = false"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+
+               <!----- Setting tab of date -------->
+              <form *ngIf="settingDate">
+                <div class="form-group">
+                  <label>ID/Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="fieldName"
+                    id="fieldID"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Label Text</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="labelName"
+                    id="labelID"
+                  />
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value="required"
+                  />
+                  <label class="form-check-label">Required</label>
+                </div>
+                <br /><br />
+                <div class="text-center">
+                  <button class="btn btn-primary" type="submit">Submit</button
+                  >&nbsp;
+                  <button
+                    class="btn btn-secondary"
+                    type="button"
+                    (click)="displaySetting = false"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+
+              <!----- Setting tab of Card & Carousel --------->
+              <form *ngIf="settingCard">
+                <div class="form-group">
+                  <label>ID/Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="fieldName"
+                    id="fieldID"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Image source</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="imgName"
+                    id="imgID"
+                  />
+                </div>
+                <br /><br />
+                <div class="text-center">
+                  <button class="btn btn-primary" type="submit">Submit</button
+                  >&nbsp;
+                  <button
+                    class="btn btn-secondary"
+                    type="button"
+                    (click)="displaySetting = false"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+              <!----- Setting tab of checkbox----->
+              <form *ngIf="settingCheck">
+                <div class="form-group">
+                  <label>Group Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="groupName"
+                    id="groupId"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Label Text</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="labelName"
+                    id="labelID"
+                  />
+                </div>
+                <label>Checkbox Option</label>
+                <div class="card">
+                  <div class="card-body">
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      class="closeOption"
+                      type="button"
+                    >
+                      <mat-icon>close</mat-icon>
+                    </button>
+                    <div class="row">
+                      <div class="form-group col-6">
+                        <label>Value</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="valueCheckName"
+                          id="valueCheckID"
+                        />
+                      </div>
+                      <div class="form-group col-6">
+                        <label>Label</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="labelCheckName"
+                          id="labelCheckID"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div class="text-right">
+                  <button type="button" class="btn btn-success">
+                    Add Option</button
+                  ><br />
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value="required"
+                  />
+                  <label class="form-check-label">Required</label>
+                </div>
+                <br /><br />
+                <div class="text-center">
+                  <button class="btn btn-primary" type="submit">Submit</button
+                  >&nbsp;
+                  <button
+                    class="btn btn-secondary"
+                    type="button"
+                    (click)="displaySetting = false"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+
+              <!-- Setting tab of radio-->
+              <form *ngIf="settingRadio">
+                <div class="form-group">
+                  <label>Group Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="groupName"
+                    id="groupId"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Label Text</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="labelName"
+                    id="labelID"
+                  />
+                </div>
+                <label>Radio Option</label>
+                <div class="card">
+                  <div class="card-body">
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      class="closeOption"
+                      type="button"
+                    >
+                      <mat-icon>close</mat-icon>
+                    </button>
+                    <div class="row">
+                      <div class="form-group col-6">
+                        <label>Value</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="valueRadioName"
+                          id="valueRadioID"
+                        />
+                      </div>
+                      <div class="form-group col-6">
+                        <label>Label</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="labelRadioName"
+                          id="labelRadioID"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div class="text-right">
+                  <button type="button" class="btn btn-success">
+                    Add Option</button
+                  ><br />
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value="required"
+                  />
+                  <label class="form-check-label">Required</label>
+                </div>
+                <br /><br />
+                <div class="text-center">
+                  <button class="btn btn-primary" type="submit">Submit</button
+                  >&nbsp;
+                  <button
+                    class="btn btn-secondary"
+                    type="button"
+                    (click)="displaySetting = false"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+
+              <!-- Setting tab of Select-->
+              <form *ngIf="settingSelect">
+                <div class="form-group">
+                  <label>ID/Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="selectName"
+                    id="selectId"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Label Text</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="labelName"
+                    id="labelID"
+                  />
+                </div>
+                <label>Dropdown Option</label>
+                <div class="card">
+                  <div class="card-body">
+                    <button
+                      mat-icon-button
+                      color="warn"
+                      class="closeOption"
+                      type="button"
+                    >
+                      <mat-icon>close</mat-icon>
+                    </button>
+                    <div class="row">
+                      <div class="form-group col-6">
+                        <label>Value</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="valueSelectName"
+                          id="valueSelectID"
+                        />
+                      </div>
+                      <div class="form-group col-6">
+                        <label>Label</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="labelSelectName"
+                          id="labelSelectID"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div class="text-right">
+                  <button type="button" class="btn btn-success">
+                    Add Option</button
+                  ><br />
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value="required"
+                  />
+                  <label class="form-check-label">Required</label>
+                </div>
+                <br /><br />
+                <div class="text-center">
+                  <button class="btn btn-primary" type="submit">Submit</button
+                  >&nbsp;
+                  <button
+                    class="btn btn-secondary"
+                    type="button"
+                    (click)="displaySetting = false"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+
+              <!-- Setting tab of button-->
+              <form *ngIf="settingButton">
+                <div class="form-group">
+                  <label>ID/Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="fieldName"
+                    id="fieldId"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Button Label</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="labelName"
+                    id="labelID"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Button Type</label>
+                  <select
+                    class="form-control"
+                    name="buttonType"
+                    id="buttonType"
+                  >
+                    <option value="submit">Submit</option>
+                    <option value="reset">Reset</option>
+                    <option value="cancel">Cancel</option>
+                  </select>
+                </div>
+                <br /><br />
+                <div class="text-center">
+                  <button class="btn btn-primary" type="submit">Submit</button
+                  >&nbsp;
+                  <button
+                    class="btn btn-secondary"
+                    type="button"
+                    (click)="displaySetting = false"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </mat-tab>
+            <mat-tab label="Config"><br>
+              <div class="form-group">
+                <label>Add API Variable</label>
+                  <select class="form-control">
+                    <option value="1">message</option>
+                    <option value="2">userName</option>
+                    <option value="3">getTimeStamp</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                <label>Statement</label>
+                  <select class="form-control">
+                    <option value="1">Statement 1</option>
+                    <option value="2">Statement 2</option>
+                    <option value="3">Statement 3</option>
+                  </select>
+              </div>
+              <div class="form-group row">
+                <div class="col-4">
+                  <label>Status Field</label>
+                </div>
+                <div class="col-8">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="show" checked>
+                    <label class="form-check-label" for="inlineRadio1">Show</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="hide">
+                    <label class="form-check-label" for="inlineRadio2">Hide</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="readonly">
+                    <label class="form-check-label" for="inlineRadio3">Read Only</label>
+                  </div>
+                </div>
+                
+              </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
