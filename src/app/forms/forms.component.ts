@@ -225,16 +225,6 @@ export class FormsComponent implements OnInit {
   showButton: number;
   btnAdd: boolean = true;
   showForm: boolean = false;
-  displaySetting: boolean = false;
-  settingCheck: boolean = false;
-  settingRadio: boolean = false;
-  settingSelect: boolean = false;
-  settingButton: boolean = false;
-  settingButtonDouble: boolean = false;
-  settingText: boolean = false;
-  settingDate: boolean = false;
-  settingCard: boolean = false;
-  settingCarousel: boolean = false;
   button: string;
   
   constructor( private dialog: MatDialog, public formApi: FormApiService) { }
@@ -300,10 +290,7 @@ export class FormsComponent implements OnInit {
 
   // ------------- delete dropped item from droppedItemList -----------------------
   deleteList(index) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    const dialogRef = this.dialog.open(DialogFormComponent, dialogConfig);
+    const dialogRef = this.dialog.open(DialogFormComponent, {disableClose: true, autoFocus: true, data: {inputType : 'field'}});
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.droppedItemsList.splice(index, 1);
@@ -321,17 +308,12 @@ export class FormsComponent implements OnInit {
 
   // ---- method for open setting tab and setting field -------------------
   settingField(index, items) {
-    // this.formsValue.emit(items);
-    // this.indexField.emit(index);
     this.formsValue = this.forms.attributes;
   }
 
   // ----- method for delete option of Checkbox and radio ------------------
   deleteOption(index, optionList) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    const dialogRef = this.dialog.open(DialogFormComponent, dialogConfig);
+    const dialogRef = this.dialog.open(DialogFormComponent, {disableClose: true, autoFocus: true, data: {inputType : 'option'}});
     dialogRef.afterClosed().subscribe( result => {
       if (result) {
         optionList.splice(index, 1);
@@ -346,5 +328,16 @@ export class FormsComponent implements OnInit {
       value: null
     };
     optionList.push(option);
+  }
+
+  // ------- method for Change Button class when select type of Button -------
+  onChangeTypeBtn(type, data) {
+    if (type === 'cancel') {
+      data.className = 'btn btn-secondary';
+    } else if (type === 'reset') {
+      data.className = 'btn btn-danger';
+    } else {
+      data.className = 'btn btn-primary';
+    }
   }
 }

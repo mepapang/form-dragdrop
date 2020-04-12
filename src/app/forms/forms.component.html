@@ -272,7 +272,7 @@
                                 [(ngModel)]="item.setting.name"
                               />
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" *ngIf="item.inputType !== 'submit' && item.inputType !== 'button'">
                               <label>Label Text</label>
                               <input
                                 type="text"
@@ -280,6 +280,37 @@
                                 [(ngModel)]="item.setting.labelField"
                               />
                             </div>
+                            <span *ngIf="item.inputType === 'submit'">
+                              <div class="form-group" >
+                              <label>Button Label</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                [(ngModel)]="item.setting.label"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label>Button Type</label>
+                              <select
+                                class="form-control"
+                                [(ngModel)]="item.setting.type"
+                                (change)="onChangeTypeBtn(item.setting.type,item)"
+                              >
+                                <option value="submit">Submit</option>
+                                <option value="cancel">Cancel</option>
+                                <option value="reset">Rewrite</option>
+                              </select>
+                            </div>
+                            </span>
+                            
+                            <!-- <div class="form-group" *ngIf="item.inputType === 'button'">
+                              <label>Button Label</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                [(ngModel)]="item.setting.label"
+                              />
+                            </div> -->
                             <div class="form-group" *ngIf="item.inputType === 'text' || item.inputType === 'textarea'">
                               <label>Placeholder</label>
                               <input
@@ -288,8 +319,8 @@
                                 [(ngModel)]="item.setting.placeholder"
                               />
                             </div>
-                            <div *ngIf="item.inputType === 'checkbox' || item.inputType === 'radio'">
-                              <label>Option</label>
+                            <div *ngIf="item.inputType === 'checkbox' || item.inputType === 'radio' || item.inputType === 'select'">
+                              <label>Options</label>
                               <span >
                                 <div class="card card-option" *ngFor="let optionCheck of item.setting.options; let length = count; let i = index">
                                   <div class="card-body">
@@ -335,7 +366,6 @@
                                   </div>
                                 </div>
                                 </span>
-
                                   <div class="text-right">
                                     <button type="button" class="btn btn-success" (click)="addOption(item.setting.options)">
                                       Add Option</button
