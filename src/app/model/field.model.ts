@@ -15,6 +15,7 @@ export class Field {
    labelColumn?: string;
    layoutCol?: string;
    setting?: Setting;
+   config?: Config;
 
 }
 
@@ -31,7 +32,15 @@ export class Setting {
     setBtn?: Array<SetBtn>;
 
 }
-
+export class Config {
+    apiInput?: string;
+    fieldStatus?: string;
+    condition?: Array<Condition>;
+}
+export class Condition {
+    label?: string;
+    value?: string;
+}
 
 export class Options {
     label?: string;

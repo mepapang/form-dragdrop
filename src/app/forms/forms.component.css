@@ -92,7 +92,9 @@ mat-card.card-drop-item {
 div.card-body{
   padding: 5px;
 }
-
+div.card-option{
+  margin-bottom: 5px;
+}
 .htmlResult{
   margin: 10px;
   float: left;
@@ -106,6 +108,10 @@ div.card-body{
 .fieldhide{
   display: none;
 }
+.row{
+  margin: 0px;
+}
+
 .oneCol{
   width: 1200px;
 }

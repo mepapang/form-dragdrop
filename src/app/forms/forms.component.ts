@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { FormApiService } from '../service/form-api.service';
@@ -6,12 +6,16 @@ import { Forms, Field } from '../model/field.model';
 import { DialogFormComponent } from '../dialog-form/dialog-form.component';
 import { DialogLayoutComponent } from '../dialog-layout/dialog-layout.component';
 import { DndDropEvent } from 'ngx-drag-drop';
+import { Form } from '@angular/forms';
 @Component({
   selector: 'app-forms',
   templateUrl: './forms.component.html',
   styleUrls: ['./forms.component.css']
 })
 export class FormsComponent implements OnInit {
+
+  // @Output() formsValue = new EventEmitter();
+  // @Output() indexField = new EventEmitter();
 
   items: Array<Field> = [
     {
@@ -27,6 +31,14 @@ export class FormsComponent implements OnInit {
         labelField: 'Text',
         placeholder: 'Enter your text',
         required: false
+      },
+      config: {
+        apiInput: 'test',
+        fieldStatus: 'show',
+        condition: [{
+          label: 'Test',
+          value: 'ifelse'
+        }]
       }
     },
     {
@@ -207,6 +219,8 @@ export class FormsComponent implements OnInit {
     formName: 'formsName',
     attributes: this.droppedItemsList
   };
+
+  formsValue: any;
   currentDraggedItem: any;
   showButton: number;
   btnAdd: boolean = true;
@@ -307,83 +321,30 @@ export class FormsComponent implements OnInit {
 
   // ---- method for open setting tab and setting field -------------------
   settingField(index, items) {
-    if (this.displaySetting === false) {
-      this.displaySetting = true;
-      if (items.inputType === 'checkbox') {
-        this.settingCheck = true;
-        this.settingRadio = false;
-        this.settingSelect = false;
-        this.settingButton = false;
-        this.settingButtonDouble = false;
-        this.settingText = false;
-        this.settingDate = false;
-        this.settingCard = false;
-      } else if (items.inputType === 'radio') {
-        this.settingRadio = true;
-        this.settingCheck = false;
-        this.settingSelect = false;
-        this.settingButton = false;
-        this.settingButtonDouble = false;
-        this.settingText = false;
-        this.settingDate = false;
-        this.settingCard = false;
-      } else if (items.inputType === 'select') {
-        this.settingSelect = true;
-        this.settingRadio = false;
-        this.settingCheck = false;
-        this.settingButton = false;
-        this.settingButtonDouble = false;
-        this.settingText = false;
-        this.settingDate = false;
-        this.settingCard = false;
-      } else if (items.inputType === 'submit') {
-        this.settingButton = true;
-        this.settingSelect = false;
-        this.settingRadio = false;
-        this.settingCheck = false;
-        this.settingButtonDouble = false;
-        this.settingText = false;
-        this.settingDate = false;
-        this.settingCard = false;
-      } else if (items.type === 'double-button') {
-        this.settingButtonDouble = true;
-        this.settingButton = false;
-        this.settingSelect = false;
-        this.settingRadio = false;
-        this.settingCheck = false;
-        this.settingText = false;
-        this.settingDate = false;
-        this.settingCard = false;
-      } else if (items.inputType === 'date') {
-        this.settingDate = true;
-        this.settingButtonDouble = false;
-        this.settingButton = false;
-        this.settingSelect = false;
-        this.settingRadio = false;
-        this.settingCheck = false;
-        this.settingText = false;
-        this.settingCard = false;
-      } else if (items.type === 'card' || items.type === 'carousel') {
-        this.settingCard = true;
-        this.settingDate = false;
-        this.settingButtonDouble = false;
-        this.settingButton = false;
-        this.settingSelect = false;
-        this.settingRadio = false;
-        this.settingCheck = false;
-        this.settingText = false;
-      } else {
-        this.settingText = true;
-        this.settingButtonDouble = false;
-        this.settingButton = false;
-        this.settingSelect = false;
-        this.settingRadio = false;
-        this.settingCheck = false;
-        this.settingDate = false;
-        this.settingCard = false;
+    // this.formsValue.emit(items);
+    // this.indexField.emit(index);
+    this.formsValue = this.forms.attributes;
+  }
+
+  // ----- method for delete option of Checkbox and radio ------------------
+  deleteOption(index, optionList) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(DialogFormComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe( result => {
+      if (result) {
+        optionList.splice(index, 1);
       }
-    } else {
-      this.displaySetting = false;
-    }
+    });
+  }
+
+  // ------- method for add option of Checkbox and radio --------------------
+  addOption(optionList) {
+    const option = {
+      label: '',
+      value: null
+    };
+    optionList.push(option);
   }
 }

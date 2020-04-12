@@ -1,17 +1,16 @@
 <div class="container">
     <mat-tab-group>
         <mat-tab label="Setting">
-                <div class="text-left">
-                    <h5>Setting Field</h5>
+                <div style="margin-top: 10px;" class="text-left">
+                    <h5>Setting Field : {{formsValue.setting.labelField}}</h5>
                 </div><br />
-            <form *ngIf="settingText">
-                <div class="form-group">
+                <span *ngIf="formsValue.inputType === 'text'">
+                  <div class="form-group">
                   <label>ID/Name</label>
                   <input
                     type="text"
                     class="form-control"
-                    name="fieldName"
-                    id="fieldID"
+                    [(ngModel)]="formsValue.setting.name"
                   />
                 </div>
                 <div class="form-group">
@@ -19,8 +18,7 @@
                   <input
                     type="text"
                     class="form-control"
-                    name="labelName"
-                    id="labelID"
+                    [(ngModel)]="formsValue.setting.labelField"
                   />
                 </div>
                 <div class="form-group">
@@ -28,109 +26,46 @@
                   <input
                     type="text"
                     class="form-control"
+                    [(ngModel)]="formsValue.setting.placeholder"
+                  />
+                </div>
+                
+                </span>
+              <span *ngIf="formsValue.inputType === 'checkbox' || formsValue.inputType === 'radio'">
+                <div class="form-group">
+                  <label>Group Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="groupName"
+                    id="groupId"
+                    [(ngModel)]="formsValue.setting.name"
+                  />
+                </div>
+              </span>
+            <!-- <span *ngIf="formsValue.inputType === 'text' || formsValue.inputType === 'textarea'">
+                <div class="form-group">
+                  <label>Placeholder</label>
+                  <input
+                    type="text"
+                    class="form-control"
                     name="placeholderName"
                     id="placeholderID"
+                    [(ngModel)]="formsValue.setting.placeholder"
                   />
                 </div>
-                <div class="form-check form-check-inline">
+            </span> -->
+                <div *ngIf="(formsValue.inputType !== 'card' && formsValue.inputType !== 'carousel') && (formsValue.inputType !== 'submit' && formsValue.inputType !== 'button')" class="form-check form-check-inline">
                   <input
                     class="form-check-input"
                     type="checkbox"
-                    value="required"
+                    [value]="formsValue.setting.required"
+                    [(ngModel)]="formsValue.setting.required"
                   />
                   <label class="form-check-label">Required</label>
-                </div>
-                <br /><br />
-                <div class="text-center">
-                  <button class="btn btn-primary" type="submit">Submit</button
-                  >&nbsp;
-                  <button
-                    class="btn btn-secondary"
-                    type="button"
-                    (click)="displaySetting = false"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-
-               <!----- Setting tab of date -------->
-              <form *ngIf="settingDate">
-                <div class="form-group">
-                  <label>ID/Name</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="fieldName"
-                    id="fieldID"
-                  />
-                </div>
-                <div class="form-group">
-                  <label>Label Text</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="labelName"
-                    id="labelID"
-                  />
-                </div>
-                <div class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value="required"
-                  />
-                  <label class="form-check-label">Required</label>
-                </div>
-                <br /><br />
-                <div class="text-center">
-                  <button class="btn btn-primary" type="submit">Submit</button
-                  >&nbsp;
-                  <button
-                    class="btn btn-secondary"
-                    type="button"
-                    (click)="displaySetting = false"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-
-              <!----- Setting tab of Card & Carousel --------->
-              <form *ngIf="settingCard">
-                <div class="form-group">
-                  <label>ID/Name</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="fieldName"
-                    id="fieldID"
-                  />
-                </div>
-                <div class="form-group">
-                  <label>Image source</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="imgName"
-                    id="imgID"
-                  />
-                </div>
-                <br /><br />
-                <div class="text-center">
-                  <button class="btn btn-primary" type="submit">Submit</button
-                  >&nbsp;
-                  <button
-                    class="btn btn-secondary"
-                    type="button"
-                    (click)="displaySetting = false"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
+                </div><br><br>
               <!----- Setting tab of checkbox----->
-              <form *ngIf="settingCheck">
+              <span *ngIf="settingCheck">
                 <div class="form-group">
                   <label>Group Name</label>
                   <input
@@ -208,10 +143,10 @@
                     Cancel
                   </button>
                 </div>
-              </form>
+              </span>
 
               <!-- Setting tab of radio-->
-              <form *ngIf="settingRadio">
+              <span *ngIf="settingRadio">
                 <div class="form-group">
                   <label>Group Name</label>
                   <input
@@ -289,10 +224,10 @@
                     Cancel
                   </button>
                 </div>
-              </form>
+              </span>
 
               <!-- Setting tab of Select-->
-              <form *ngIf="settingSelect">
+              <span *ngIf="settingSelect">
                 <div class="form-group">
                   <label>ID/Name</label>
                   <input
@@ -370,10 +305,10 @@
                     Cancel
                   </button>
                 </div>
-              </form>
+              </span>
 
               <!-- Setting tab of button-->
-              <form *ngIf="settingButton">
+              <span *ngIf="settingButton">
                 <div class="form-group">
                   <label>ID/Name</label>
                   <input
@@ -416,7 +351,7 @@
                     Cancel
                   </button>
                 </div>
-              </form>
+              </span>
             </mat-tab>
             <mat-tab label="Config"><br>
               <div class="form-group">

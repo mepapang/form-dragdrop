@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Form } from '@angular/forms';
 
 @Component({
   selector: 'app-setting-form',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingFormComponent implements OnInit {
 
+  @Input() formsValue: Form;
+
   constructor() { }
 
   ngOnInit() {
   }
+
+  onReset() {
+    console.log(this.formsValue);
+  }
+
 
 }
