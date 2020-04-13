@@ -59,32 +59,28 @@
         <h6>Drag and Drop a form component</h6>
         <button class="btn btn-success btn-block" type="button" (click)="createForm()" *ngIf="btnAdd">Add Form</button>
         <span *ngIf="showForm">
+        <div *ngFor="let form of formsList; let i = index">
+
+          <!----------  button for setting form ----------------------->
+          <div class="group-button">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="settingForm(form)"
+            >
+              <mat-icon>settings</mat-icon>
+            </button>
+          </div>
+
         <mat-card
           class="card-drop-item"
           dndDropzone
-          (dndDrop)="onDropItem($event,forms.attributes)" class="dndDropArea"
+          (dndDrop)="onDropItem($event,form.attributes)" class="dndDropArea"
         >
           <div
             cdkDropList
             (cdkDropListDropped)="drop($event)"
           >
-            <!---------- group button for setting form ----------------------->
-          <div class="group-button">
-            <button
-              mat-icon-button
-              color="primary"
-              (click)="item.toggle=true; settingField(i,item)"
-            >
-              <mat-icon>settings</mat-icon>
-            </button>
-            <button
-              mat-icon-button
-              color="primary"
-              (click)="item.toggle=false"
-            >
-              <mat-icon>close</mat-icon>
-            </button>
-          </div>
 
            <!-- ----------------- Display Dreopped Item List ------------------------->
 
@@ -93,11 +89,11 @@
                 <label style="margin-right: 5px;">Form name</label><label class="text-danger">*</label>
               </div>
               <div class="col-5">
-                <input class="form-control" type="text" name="formName" id="formName" [(ngModel)]="forms.formName">
+                <input class="form-control" type="text" [(ngModel)]="form.formName">
               </div>
             </div><br>
             <div class="row">
-            <div *ngFor="let item of forms.attributes; let i = index" cdkDrag>
+            <div *ngFor="let item of form.attributes; let i = index" cdkDrag>
               <div [class]="item.layoutCol" (mouseover)="mouseOver(i)" (mouseleave)="showButton = null">
 
                 <!------------- group button for setting field,add layout and delete field ------------------>
@@ -106,7 +102,7 @@
                   mat-icon-button
                   color="primary"
                   *ngIf="!item.toggle"
-                  (click)="item.toggle=true; settingField(i,item)"
+                  (click)="item.toggle=true"
                 >
                   <mat-icon>settings</mat-icon>
                 </button>
@@ -425,7 +421,9 @@
         </div>
           </div>
           
-        </mat-card><br>
+        </mat-card>
+      </div>
+        <br>
         <div class="text-right">
            <button class="btn btn-success" type="button">Add Form</button>
         </div>
@@ -443,10 +441,10 @@
                 <label>Form name</label>
               </div>
               <div class="col-5">
-                {{forms.formName}}
+                {{formsList.formName}}
               </div>
             </div><br>
-              <div *ngFor="let formsAtt of forms.attributes">
+              <div *ngFor="let formsAtt of formsList.attributes">
                 <div *ngIf="formsAtt.inputType === 'text' || formsAtt.inputType === 'date'">
                  
                         <div class="form-group row">
@@ -520,7 +518,7 @@
             </mat-card-title>
             <mat-card-content>
               <div class="container">
-                {{forms | json}}
+                {{formsList | json}}
               </div>
             </mat-card-content>
           </mat-card>

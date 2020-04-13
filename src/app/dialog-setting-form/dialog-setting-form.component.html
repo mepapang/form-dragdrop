@@ -1,0 +1,24 @@
+<div class="container">
+    <h4>Setting Form</h4><hr>
+
+    <div class="form-group">
+        <label>Form ID</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="data.id"
+        />
+      </div>
+    <div class="form-group">
+        <label>Form Name</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="data.formName"
+        />
+      </div><br>
+      <div class="text-center">
+        <button class="btn btn-primary" style="width: 80px;" type="button" [mat-dialog-close]="data" cdkFocusInitial>Submit</button>&nbsp;
+        <button class="btn btn-secondary" style="width: 80px;" type="button" (click)="onCancelClick()">Cancel</button>
+    </div>
+</div>

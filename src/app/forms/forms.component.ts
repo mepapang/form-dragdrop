@@ -2,11 +2,12 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { FormApiService } from '../service/form-api.service';
-import { Forms, Field } from '../model/field.model';
+import { Forms, Field, PageForms } from '../model/field.model';
 import { DialogFormComponent } from '../dialog-form/dialog-form.component';
 import { DialogLayoutComponent } from '../dialog-layout/dialog-layout.component';
 import { DndDropEvent } from 'ngx-drag-drop';
 import { Form } from '@angular/forms';
+import { DialogSettingFormComponent } from '../dialog-setting-form/dialog-setting-form.component';
 @Component({
   selector: 'app-forms',
   templateUrl: './forms.component.html',
@@ -210,19 +211,25 @@ export class FormsComponent implements OnInit {
     ];
 
   droppedItemsList: Array<Field> = [];
-  forms: Forms = {
+  formsList: Array<Forms> = [
+    {
+      id: null,
+      formName: 'formsName',
+      attributes: this.droppedItemsList
+    }
+  ];
+  pageForms: PageForms = {
     id: null,
-    formName: 'formsName',
-    attributes: this.droppedItemsList
+    name: 'pageName',
+    forms: this.formsList
   };
 
-  formsValue: any;
   currentDraggedItem: any;
   showButton: number;
   btnAdd: boolean = true;
   showForm: boolean = false;
   button: string;
-  
+
   constructor( private dialog: MatDialog, public formApi: FormApiService) { }
 
   ngOnInit() { }
@@ -274,12 +281,22 @@ export class FormsComponent implements OnInit {
         this.droppedItemsList[index].setting.placeholder =  'test';
         // this.droppedItemsList[index].layoutRow = 'twoColRow';
         this.droppedItemsList.splice(index + 1, 0, data);
-        console.log('this.droppedItemsList',this.droppedItemsList);
+        console.log('this.droppedItemsList', this.droppedItemsList);
         console.log('items',this.items);
       } else if (result === 'twoCol') {
         this.droppedItemsList[index].layoutCol = 'twoCol';
       } else {
         this.droppedItemsList[index].layoutCol = 'col';
+      }
+    });
+  }
+
+  // ----------- method for open dialog setting form to setting form ----------------
+  settingForm(form) {
+    const dialogRef = this.dialog.open(DialogSettingFormComponent, {disableClose: true, autoFocus: true, data: form});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        //---
       }
     });
   }
@@ -300,11 +317,6 @@ export class FormsComponent implements OnInit {
       event.previousIndex,
       event.currentIndex
     );
-  }
-
-  // ---- method for open setting tab and setting field -------------------
-  settingField(index, items) {
-    this.formsValue = this.forms.attributes;
   }
 
   // ----- method for delete option of Checkbox and radio ------------------

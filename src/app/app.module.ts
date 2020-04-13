@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogLayoutComponent } from './dialog-layout/dialog-layout.component';
 import { DndModule } from 'ngx-drag-drop';
+import { DialogSettingFormComponent } from './dialog-setting-form/dialog-setting-form.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { DndModule } from 'ngx-drag-drop';
     FormsComponent,
     TableComponent,
     DialogFormComponent,
-    DialogLayoutComponent
+    DialogLayoutComponent,
+    DialogSettingFormComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,6 @@ import { DndModule } from 'ngx-drag-drop';
   ],
   providers: [FormApiService],
   bootstrap: [AppComponent],
-  entryComponents: [ DialogFormComponent, DialogLayoutComponent]
+  entryComponents: [ DialogFormComponent, DialogLayoutComponent, DialogSettingFormComponent]
 })
 export class AppModule {}
