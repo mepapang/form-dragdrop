@@ -413,6 +413,81 @@
                               <label class="form-check-label">Required</label>
                             </div>
                             </mat-tab>
+
+                            <!---------------------- Tab of Config --------------------->
+                            <mat-tab label="Config"><br>
+                              <div class="form-group">
+                                <label>Add API Variable</label>
+                                  <select class="form-control" [(ngModel)]="item.config.apiInput">
+                                    <option value="message">message</option>
+                                    <option value="userName">userName</option>
+                                    <option value="getTimeStamp">getTimeStamp</option>
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                <label>Condition</label>
+                                <span *ngFor="let condi of item.config.condition; let length = count; let i =index">
+                                      <div class="row">
+                                        <div class="form-group col-5">
+                                          <div class="row">
+                                            <div class="col-2">
+                                              <label>Label</label>
+                                            </div>
+                                            <div class="col-10">
+                                              <input
+                                            type="text"
+                                            class="form-control"
+                                            [(ngModel)]="condi.label"
+                                          />
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-6">
+                                          <div class="row">
+                                            <div class="col-3">
+                                              <label>Condition</label>
+                                            </div>
+                                            <div class="col-9">
+                                               <input
+                                            type="text"
+                                            class="form-control"
+                                            [(ngModel)]="condi.value"
+                                          />
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="text-left col-1" style="padding: 0px;">
+                                          <button type="button" class="btn btn-danger" (click)="deleteCondition(i,item.config.condition)" style="padding: 5px;" *ngIf="length > 1">
+                                            <mat-icon>delete_outline</mat-icon>
+                                          </button>
+                                          <button type="button" class="btn btn-success" (click)="addCondition(item.config.condition)" style="padding: 5px;">
+                                            <mat-icon>add</mat-icon>
+                                          </button>
+                                        </div>
+                                      </div>
+                                </span>
+                              </div>
+                              <div class="form-group row">
+                                <div class="col-2" style="padding: 0px;">
+                                  <label>Status Field</label>
+                                </div>
+                                <div class="col-10" style="padding: 0px;">
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="show" [(ngModel)]="item.config.fieldStatus">
+                                    <label class="form-check-label">Show</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="hide" [(ngModel)]="item.config.fieldStatus">
+                                    <label class="form-check-label">Hide</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="readonly" [(ngModel)]="item.config.fieldStatus">
+                                    <label class="form-check-label">Read Only</label>
+                                  </div>
+                                </div>
+                                
+                              </div>
+                        </mat-tab>
                           </mat-tab-group>
                     </div>
                   </div>
@@ -425,7 +500,7 @@
       </div>
         <br>
         <div class="text-right">
-           <button class="btn btn-success" type="button">Add Form</button>
+           <button class="btn btn-success" type="button" (click)="onAddForm(formsList)">Add Form</button>
         </div>
         </span>
       </div>  

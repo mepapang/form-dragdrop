@@ -7,6 +7,12 @@
     <h3>Remove Option</h3><hr>
     <h4>Are you sure you want to remove this option?</h4>
 </div>
+
+<div *ngIf="data.inputType === 'condition'">
+    <h3>Remove Condition</h3><hr>
+    <h4>Are you sure you want to remove this condition?</h4>
+</div>
+
 <br>
 <div class="text-center">
     <button class="btn btn-success" style="width: 80px;" type="button" [mat-dialog-close]="true" cdkFocusInitial>Yes</button>&nbsp;

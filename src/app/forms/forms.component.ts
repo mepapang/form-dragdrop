@@ -34,7 +34,7 @@ export class FormsComponent implements OnInit {
         required: false
       },
       config: {
-        apiInput: 'test',
+        apiInput: 'message',
         fieldStatus: 'show',
         condition: [{
           label: 'Test',
@@ -56,6 +56,14 @@ export class FormsComponent implements OnInit {
         placeholder: 'text',
         required: false,
         rows: '3'
+      },
+      config: {
+        apiInput: 'message',
+        fieldStatus: 'show',
+        condition: [{
+          label: 'Test',
+          value: 'ifelse'
+        }]
       }
     },
     {
@@ -77,6 +85,14 @@ export class FormsComponent implements OnInit {
         {
           label: 'option 2',
           value: 2
+        }]
+      },
+      config: {
+        apiInput: 'message',
+        fieldStatus: 'show',
+        condition: [{
+          label: 'Test',
+          value: 'ifelse'
         }]
       }
     },
@@ -100,6 +116,14 @@ export class FormsComponent implements OnInit {
         label: 'option 2',
         value: '2'
       }]
+      },
+      config: {
+        apiInput: 'message',
+        fieldStatus: 'show',
+        condition: [{
+          label: 'Test',
+          value: 'ifelse'
+        }]
       }
     },
     {
@@ -126,6 +150,14 @@ export class FormsComponent implements OnInit {
           label: 'option 3',
           value: 3
         }]
+      },
+      config: {
+        apiInput: 'message',
+        fieldStatus: 'show',
+        condition: [{
+          label: 'Test',
+          value: 'ifelse'
+        }]
       }
     },
     {
@@ -140,10 +172,26 @@ export class FormsComponent implements OnInit {
       setting: {
         labelField: 'Date',
         required: false,
+      },
+      config: {
+        apiInput: 'message',
+        fieldStatus: 'show',
+        condition: [{
+          label: 'Test',
+          value: 'ifelse'
+        }]
       }
     },
     {
-      name: 'Card', type: 'card', inputType: 'card', icon: 'crop_portrait', setting: { imgSrc: [{src: ''}] }
+      name: 'Card', type: 'card', inputType: 'card', icon: 'crop_portrait', setting: { imgSrc: [{src: ''}] },
+      config: {
+        apiInput: 'message',
+        fieldStatus: 'show',
+        condition: [{
+          label: 'Test',
+          value: 'ifelse'
+        }]
+      }
     },
     {
       name: 'Carousel Card',
@@ -152,6 +200,14 @@ export class FormsComponent implements OnInit {
       icon: 'view_carousel',
       setting: {
         imgSrc: [{ src: 'assets/photo1.jpg' }, { src: 'assets/photo2.jpg' }, { src: 'assets/photo3.jpg' }]
+      },
+      config: {
+        apiInput: 'message',
+        fieldStatus: 'show',
+        condition: [{
+          label: 'Test',
+          value: 'ifelse'
+        }]
       }
     },
     {
@@ -166,6 +222,14 @@ export class FormsComponent implements OnInit {
       setting: {
         labelField: 'File input',
         required: false
+      },
+      config: {
+        apiInput: 'message',
+        fieldStatus: 'show',
+        condition: [{
+          label: 'Test',
+          value: 'ifelse'
+        }]
       }
     }
   ];
@@ -245,6 +309,14 @@ export class FormsComponent implements OnInit {
     //   }
     // }));
   }
+  onAddForm(formsList) {
+    const form = {
+      id: null,
+      formName: 'formsName',
+      attributes: []
+    };
+    formsList.push(form);
+  }
 
   // ------- method for drop item from button components and add item in list --------
   onDropItem(event: DndDropEvent, list?: any[]) {
@@ -252,19 +324,9 @@ export class FormsComponent implements OnInit {
       event.data.setting.name = event.data.inputType + '-' + new Date().getTime();
       list.push(event.data);
     }
-    // let index = event.index;
-    // list.splice(index, 0, event.data);
-    // if ( typeof index === 'undefined') {
-    //   index = list.length;
-    // }
-
-    // this.currentDraggedItem = event;
-    // console.log('this.currentDraggedItem', this.currentDraggedItem);
-    // this.currentDraggedItem.dragData.id = event.dragData.inputType + '-' + new Date().getTime();
-    // list.push(this.currentDraggedItem.dragData);
-    // this.droppedItemsList.push(this.currentDraggedItem.dragData);
   }
 
+  // -------- method for detect mouseover event of field for show group button -------------
   mouseOver(i) {
     this.showButton = i;
   }
@@ -277,16 +339,12 @@ export class FormsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'oneCol') {
-        this.droppedItemsList[index].layoutCol = 'oneCol';
-        this.droppedItemsList[index].setting.placeholder =  'test';
-        // this.droppedItemsList[index].layoutRow = 'twoColRow';
-        this.droppedItemsList.splice(index + 1, 0, data);
-        console.log('this.droppedItemsList', this.droppedItemsList);
-        console.log('items',this.items);
+          data.layoutCol = 'oneCol';
       } else if (result === 'twoCol') {
-        this.droppedItemsList[index].layoutCol = 'twoCol';
+          data.layoutCol = 'twoCol';
+          this.droppedItemsList.splice(index + 1, 0, data);
       } else {
-        this.droppedItemsList[index].layoutCol = 'col';
+        this.droppedItemsList[index].layoutCol = data.layoutCol;
       }
     });
   }
@@ -336,6 +394,25 @@ export class FormsComponent implements OnInit {
       value: null
     };
     optionList.push(option);
+  }
+
+  // ----------- method for delete Condition of field config ------------------
+  deleteCondition(index, conditionList) {
+    const dialogRef = this.dialog.open(DialogFormComponent, {disableClose: true, autoFocus: true, data: {inputType : 'condition'}});
+    dialogRef.afterClosed().subscribe( result => {
+      if (result) {
+        conditionList.splice(index, 1);
+      }
+    });
+  }
+
+  // ----------- method for add Condition of field config --------------------
+  addCondition(conditionList) {
+    const condi = {
+      label: '',
+      value: ''
+    };
+    conditionList.push(condi);
   }
 
   // ------- method for Change Button class when select type of Button -------
