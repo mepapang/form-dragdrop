@@ -1,5 +1,8 @@
-{
-  "forms": [
+{ 
+  "pageForms" : [{
+    "id": 1,
+    "name": "page1",
+    "forms": [
     {
       "id": 1,
       "name": "formsName",
@@ -131,4 +134,5 @@
       ]
     }
   ]
+  }]  
 }

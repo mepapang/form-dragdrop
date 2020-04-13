@@ -9,6 +9,9 @@
           Basic Components
         </mat-panel-title>
       </mat-expansion-panel-header>
+
+      <!---------------- Display button of Item Component for drag --------------->
+
       <div class="text-center">
         <span *ngFor="let item of items">
           <button
@@ -16,10 +19,7 @@
             class="btn btn-primary but1"
             [dndDraggable]="item"
             [dndEffectAllowed]="'copy'" 
-          > 
-          <!-- [draggable]
-          [dragClass]="'active'"
-          [dragData]="item" -->
+          >
             <mat-icon>{{ item.icon }}</mat-icon
             ><span class="padding">{{ item.name }}</span>
           </button>
@@ -64,15 +64,30 @@
           dndDropzone
           (dndDrop)="onDropItem($event,forms.attributes)" class="dndDropArea"
         >
-        <!-- droppable
-          [dragOverClass]="'drag-target-border'"
-          [dragHintClass]="'drag-hint'"
-          (onDrop)="onDropItem($event,forms.attributes)" -->
-          <!-- ------------ Display Dreopped Item List ------------------------->
           <div
             cdkDropList
             (cdkDropListDropped)="drop($event)"
           >
+            <!---------- group button for setting form ----------------------->
+          <div class="group-button">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="item.toggle=true; settingField(i,item)"
+            >
+              <mat-icon>settings</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="item.toggle=false"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+
+           <!-- ----------------- Display Dreopped Item List ------------------------->
+
             <div class="row">
               <div class="col-3">
                 <label style="margin-right: 5px;">Form name</label><label class="text-danger">*</label>
@@ -84,6 +99,8 @@
             <div class="row">
             <div *ngFor="let item of forms.attributes; let i = index" cdkDrag>
               <div [class]="item.layoutCol" (mouseover)="mouseOver(i)" (mouseleave)="showButton = null">
+
+                <!------------- group button for setting field,add layout and delete field ------------------>
               <div class="group-button" *ngIf="showButton == i">
                 <button
                   mat-icon-button
@@ -108,6 +125,7 @@
                   <mat-icon>delete_outline</mat-icon>
                 </button>
               </div>
+                  <!------------------ display forms.attributed list ----------------->
                   <div class="form-dropped">
                     <div class="row">
                   <label
@@ -280,6 +298,14 @@
                                 [(ngModel)]="item.setting.labelField"
                               />
                             </div>
+                            <div class="form-group" *ngIf="item.inputType === 'text' || item.inputType === 'textarea'">
+                              <label>Placeholder</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                [(ngModel)]="item.setting.placeholder"
+                              />
+                            </div>
                             <span *ngIf="item.inputType === 'submit'">
                               <div class="form-group" >
                               <label>Button Label</label>
@@ -302,23 +328,32 @@
                               </select>
                             </div>
                             </span>
-                            
-                            <!-- <div class="form-group" *ngIf="item.inputType === 'button'">
-                              <label>Button Label</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                [(ngModel)]="item.setting.label"
-                              />
-                            </div> -->
-                            <div class="form-group" *ngIf="item.inputType === 'text' || item.inputType === 'textarea'">
-                              <label>Placeholder</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                [(ngModel)]="item.setting.placeholder"
-                              />
-                            </div>
+
+                            <span *ngIf="item.inputType === 'button'">
+                              <div *ngFor="let setBtn of item.setting.setBtn ; let i = index" class="row">
+                                <div class="form-group col-6" >
+                                  <label>Button Label {{i+1}}</label>
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    [(ngModel)]="setBtn.label"
+                                  />
+                                </div>
+                                <div class="form-group col-6">
+                                  <label>Button Type {{i+1}}</label>
+                                  <select
+                                    class="form-control"
+                                    [(ngModel)]="setBtn.type"
+                                    (change)="onChangeTypeBtn(setBtn.type,setBtn)"
+                                  >
+                                    <option value="submit">Submit</option>
+                                    <option value="cancel">Cancel</option>
+                                    <option value="reset">Rewrite</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </span>
+
                             <div *ngIf="item.inputType === 'checkbox' || item.inputType === 'radio' || item.inputType === 'select'">
                               <label>Options</label>
                               <span >

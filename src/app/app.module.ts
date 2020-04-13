@@ -17,7 +17,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogLayoutComponent } from './dialog-layout/dialog-layout.component';
 import { DndModule } from 'ngx-drag-drop';
-import { SettingFormComponent } from './forms/setting-form/setting-form.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +25,7 @@ import { SettingFormComponent } from './forms/setting-form/setting-form.componen
     FormsComponent,
     TableComponent,
     DialogFormComponent,
-    DialogLayoutComponent,
-    SettingFormComponent
+    DialogLayoutComponent
   ],
   imports: [
     BrowserModule,

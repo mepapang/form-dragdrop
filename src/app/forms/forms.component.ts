@@ -196,17 +196,13 @@ export class FormsComponent implements OnInit {
       setting: {
         labelField: '',
         setBtn: [{
-          id: 'btn1',
-          name: 'btn1',
           label: 'Submit',
           type: 'submit',
           className: 'btn btn-primary'
         },
       {
-          id: 'btn2',
-          name: 'btn2',
           label: 'Cancel',
-          type: 'button',
+          type: 'cancel',
           className: 'btn btn-secondary'
         }]
       }

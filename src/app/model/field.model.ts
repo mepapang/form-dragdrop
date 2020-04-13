@@ -1,3 +1,9 @@
+export class PageForms {
+    id: number;
+    name?: string;
+    forms?: Array<Forms>;
+}
+
 export class Forms {
     id: number;
     formName: string;
