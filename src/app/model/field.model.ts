@@ -11,7 +11,6 @@ export class Forms {
 }
 
 export class Field {
-    id?: string;
    name?: string;
    type?: string;
    inputType?: string;
@@ -26,7 +25,7 @@ export class Field {
 }
 
 export class Setting {
-    _id?: string;
+    id?: string;
     name?: string;
     labelField?: string;
     placeholder?: string;

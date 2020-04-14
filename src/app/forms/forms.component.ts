@@ -322,6 +322,7 @@ export class FormsComponent implements OnInit {
   onDropItem(event: DndDropEvent, list?: any[]) {
     if (list && event.dropEffect === 'copy') {
       event.data.setting.name = event.data.inputType + '-' + new Date().getTime();
+      event.data.setting.id = event.data.setting.name;
       list.push(event.data);
     }
   }
@@ -332,19 +333,32 @@ export class FormsComponent implements OnInit {
   }
 
   // -------- method for open dialog layout and manage layout -----------------
-  onAddLayout(index, data) {
+  onAddLayout(index, data?: any[]) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     const dialogRef = this.dialog.open(DialogLayoutComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'oneCol') {
-          data.layoutCol = 'oneCol';
+          data[index].layoutCol = 'oneCol';
       } else if (result === 'twoCol') {
-          data.layoutCol = 'twoCol';
-          this.droppedItemsList.splice(index + 1, 0, data);
+          data[index].layoutCol = 'twoCol';
+          const newId = new Date().getTime();
+          let dataTest = {...data[index], setting: {...data[index].setting , id: newId}};
+          // let dataTest = Object.assign({}, data[index]);
+          // dataTest.setting.id = new Date().getTime();
+          const i = index + 1;
+          data.splice(i, 0, dataTest);
+          // dataTest.name = 'Test';
+          // data.splice(index+1,0, dataTest);
+          // let dataTest = new Field();
+          // dataTest = data;
+          // data.layoutCol = 'twoCol';
+          // data.setting.name = data.inputType + '-' + new Date().getTime();
+          // dataTest.setting.name = data.inputType + '-' + new Date().getTime();
+          // this.droppedItemsList.push(dataTest);
       } else {
-        this.droppedItemsList[index].layoutCol = data.layoutCol;
+        this.droppedItemsList[index].layoutCol = data[index].layoutCol;
       }
     });
   }
